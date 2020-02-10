@@ -3,7 +3,7 @@ package org.program.db;
 public class SQLStatements {
 
     public String selectAllFighters() {
-        String allFighters = "select f.name, f.hp, f.power, f.speed, f.strength " +
+        String allFighters = "select f.name, f.quote, f.hp, f.power, f.speed, f.strength " +
                 "from fighter as f";
         return allFighters;
     }
