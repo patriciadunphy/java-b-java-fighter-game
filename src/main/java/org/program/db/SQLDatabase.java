@@ -1,7 +1,6 @@
 package org.program.db;
 
 import java.sql.*;
-import java.util.Calendar;
 
 public class SQLDatabase {
     private static SQLDatabase instance;
@@ -39,6 +38,28 @@ public class SQLDatabase {
             e.getStackTrace();
         }
     }
+
+    public void getFighters(String sqlStatement) throws SQLException {
+        PreparedStatement myStmt;
+        ResultSet myRs;
+
+        myStmt = getConnection().prepareStatement(sqlStatement);
+
+        myRs = myStmt.executeQuery();
+
+        while (myRs.next()) {
+            System.out.println(myRs.getString("last_name") + ", " + myRs.getString("first_name") + " - "
+                    + myRs.getString("title"));
+            String name = myRs.getString("name");
+            String quote = myRs.getString("quote");
+            int hp = myRs.getInt("hp");
+            int power = myRs.getInt("power");
+            int speed = myRs.getInt("speed");
+            int strength = myRs.getInt("strength");
+
+            //Skapa ny fighter och sätt in i TournamentFighters-listan
+
+        }
 
 
 //    public void searchActor(String sqlStatement, String lastName, String firstName) throws SQLException {
@@ -102,4 +123,5 @@ public class SQLDatabase {
 //        }
 //
 //    }
+    }
 }
