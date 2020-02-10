@@ -1,5 +1,8 @@
 package org.program.db;
 
+import org.program.fighter.Fighter;
+import org.program.fighter.TournamentFighters;
+
 import java.sql.*;
 
 public class SQLDatabase {
@@ -48,14 +51,26 @@ public class SQLDatabase {
         myRs = myStmt.executeQuery();
 
         while (myRs.next()) {
-            System.out.println(myRs.getString("last_name") + ", " + myRs.getString("first_name") + " - "
-                    + myRs.getString("title"));
+//            System.out.println(myRs.getString("last_name") + ", " + myRs.getString("first_name") + " - "
+//                    + myRs.getString("title"));
             String name = myRs.getString("name");
             String quote = myRs.getString("quote");
             int hp = myRs.getInt("hp");
             int power = myRs.getInt("power");
             int speed = myRs.getInt("speed");
             int strength = myRs.getInt("strength");
+
+            Fighter f = new Fighter()
+                    .setName(name)
+                    .setQuote(quote)
+                    .setHp(hp)
+                    .setPower(power)
+                    .setSpeed(speed)
+                    .setStrength(strength);
+            TournamentFighters tour = new TournamentFighters();
+            tour.addToTournament(f);
+            System.out.println(tour.getFighters());
+            //tour.getFighters();
 
             //Skapa ny fighter och sätt in i TournamentFighters-listan
 
