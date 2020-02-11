@@ -1,9 +1,13 @@
 package org.program.db;
 
+import org.program.fighter.Attack;
 import org.program.fighter.Fighter;
-import org.program.fighter.TournamentFighters;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SQLDatabase {
     private static SQLDatabase instance;
@@ -42,17 +46,14 @@ public class SQLDatabase {
         }
     }
 
-    public void getFighters(String sqlStatement) throws SQLException {
-        PreparedStatement myStmt;
+    public List<Fighter> getFighters(String getFightersStatement) throws SQLException {
+        List<Fighter> fightersDb = new ArrayList<Fighter>();
+        PreparedStatement getFightersStmt;
         ResultSet myRs;
-
-        myStmt = getConnection().prepareStatement(sqlStatement);
-
-        myRs = myStmt.executeQuery();
+        getFightersStmt = getConnection().prepareStatement(getFightersStatement);
+        myRs = getFightersStmt.executeQuery();
 
         while (myRs.next()) {
-//            System.out.println(myRs.getString("last_name") + ", " + myRs.getString("first_name") + " - "
-//                    + myRs.getString("title"));
             String name = myRs.getString("name");
             String quote = myRs.getString("quote");
             int hp = myRs.getInt("hp");
@@ -67,33 +68,34 @@ public class SQLDatabase {
                     .setPower(power)
                     .setSpeed(speed)
                     .setStrength(strength);
-            TournamentFighters tour = new TournamentFighters();
-            tour.addToTournament(f);
-            System.out.println(tour.getFighters());
-            //tour.getFighters();
-
-            //Skapa ny fighter och sätt in i TournamentFighters-listan
-
+            fightersDb.add(f);
         }
+        return fightersDb;
+    }
 
+    public List<Fighter> addAttacks(String getAttacksStatement, List<Fighter> fighters) throws SQLException {
+        PreparedStatement getAttacksStmt;
+        ResultSet myRs;
+        getAttacksStmt = getConnection().prepareStatement(getAttacksStatement);
+        myRs = getAttacksStmt.executeQuery();
+        while (myRs.next()) {
+            String strategyDescription = myRs.getString("strategy_description");
+            String name = myRs.getString("name");
+            int damage = myRs.getInt("damage");
+            for (Fighter f : fighters) {
+                if (f.getName().equalsIgnoreCase(name)) {
+                    Attack attack = new Attack()
+                            .setDamage(damage)
+                            .setStrategyDescription(strategyDescription);
+                    f.addAttacks(attack);
+                    fighters.set(fighters.indexOf(f), f);
+                }
+            }
+        }
+        return fighters;
+    }
+}
 
-//    public void searchActor(String sqlStatement, String lastName, String firstName) throws SQLException {
-//        PreparedStatement myStmt;
-//        ResultSet myRs;
-//
-//        myStmt = getConnection().prepareStatement(sqlStatement);
-//
-//        myStmt.setString(1, lastName + "%");
-//        myStmt.setString(2, firstName + "%");
-//
-//        myRs = myStmt.executeQuery();
-//
-//        while (myRs.next()) {
-//            System.out.println(myRs.getString("first_name") + " " + myRs.getString("last_name"));
-//        }
-//    }
-//
-//
 //    public void executeUpdate(String sqlStatement, String lastName, String firstName) throws SQLException {
 //        PreparedStatement myStmt;
 //
@@ -137,6 +139,5 @@ public class SQLDatabase {
 //                    + myRs.getString("title") + ", " + calendar.get(Calendar.YEAR));
 //        }
 //
-//    }
-    }
-}
+//
+
