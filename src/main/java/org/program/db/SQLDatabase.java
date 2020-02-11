@@ -4,6 +4,8 @@ import org.program.fighter.Fighter;
 import org.program.fighter.TournamentFighters;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SQLDatabase {
     private static SQLDatabase instance;
@@ -42,18 +44,16 @@ public class SQLDatabase {
         }
     }
 
-    public TournamentFighters getFighters(String sqlStatement) throws SQLException {
+    public List<Fighter> getFighters(String sqlStatement) throws SQLException {
+        List<Fighter> fightersDb = new ArrayList<Fighter>();
         PreparedStatement myStmt;
         ResultSet myRs;
-        TournamentFighters tour = null;
+        //TournamentFighters tour = null;
         myStmt = getConnection().prepareStatement(sqlStatement);
 
         myRs = myStmt.executeQuery();
 
         while (myRs.next()) {
-//            System.out.println(myRs.getString("last_name") + ", " + myRs.getString("first_name") + " - "
-//                    + myRs.getString("title"));
-
             String name = myRs.getString("name");
             String quote = myRs.getString("quote");
             int hp = myRs.getInt("hp");
@@ -68,16 +68,46 @@ public class SQLDatabase {
                     .setPower(power)
                     .setSpeed(speed)
                     .setStrength(strength);
-            tour = new TournamentFighters();
-            tour.addToTournament(f);
-            //System.out.println(tour.getFighters());
-            //tour.getFighters();
-
-
-            //Skapa ny fighter och sätt in i TournamentFighters-listan
-
+            fightersDb.add(f);
         }
-        return tour;
+        return fightersDb;
+
+//    public TournamentFighters getFighters(String sqlStatement) throws SQLException {
+//        PreparedStatement myStmt;
+//        ResultSet myRs;
+//        TournamentFighters tour = null;
+//        myStmt = getConnection().prepareStatement(sqlStatement);
+//
+//        myRs = myStmt.executeQuery();
+//
+//        while (myRs.next()) {
+////            System.out.println(myRs.getString("last_name") + ", " + myRs.getString("first_name") + " - "
+////                    + myRs.getString("title"));
+//
+//            String name = myRs.getString("name");
+//            String quote = myRs.getString("quote");
+//            int hp = myRs.getInt("hp");
+//            int power = myRs.getInt("power");
+//            int speed = myRs.getInt("speed");
+//            int strength = myRs.getInt("strength");
+//
+//            Fighter f = new Fighter()
+//                    .setName(name)
+//                    .setQuote(quote)
+//                    .setHp(hp)
+//                    .setPower(power)
+//                    .setSpeed(speed)
+//                    .setStrength(strength);
+//            tour = new TournamentFighters();
+//            tour.addToTournament(f);
+//            //System.out.println(tour.getFighters());
+//            //tour.getFighters();
+//
+//
+//            //Skapa ny fighter och sätt in i TournamentFighters-listan
+//
+//        }
+//        return tour;
 
 
 //    public void searchActor(String sqlStatement, String lastName, String firstName) throws SQLException {

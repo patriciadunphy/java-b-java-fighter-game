@@ -38,7 +38,9 @@ public class AppTest
 
 
         //db.getFighters(stmt.selectAllFighters());
-        TournamentFighters a = db.getFighters(stmt.selectAllFighters());
-        a.getFighters();
+        TournamentFighters a = new TournamentFighters();
+        a.insertFightersFromDb(db.getFighters(stmt.selectAllFighters()));
+
+        a.printFightersList();
     }
 }

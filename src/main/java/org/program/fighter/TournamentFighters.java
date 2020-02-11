@@ -15,6 +15,21 @@ public class TournamentFighters {
     public List<Fighter> getFighters() {
         return fighters;
     }
+    public void insertFightersFromDb(List<Fighter> fighters){
+        this.fighters.addAll(fighters);
+    }
+    public void printFightersList(){
+        for (Fighter fighter : this.fighters){
+            System.out.println(fighter);
+        }
+    }
+
+//    @Override
+//    public String toString() {
+//        return (this.fighters
+//
+//    }
+
 
 //    public void getFighters(){
 //        System.out.println(fighters.toString());
