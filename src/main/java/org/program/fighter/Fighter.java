@@ -11,6 +11,14 @@ public class Fighter implements FighterMethods {
     private int strength;
     private int power;
     private List<Attack> attacks = new ArrayList();
+    private List<String> defences = new ArrayList();
+
+    public void addDefences(String defence){
+        defences.add(defence);
+    }
+    public List<String> getDefences(){
+        return defences;
+    }
 
     public void addAttacks(Attack a) {
         attacks.add(a);
@@ -56,7 +64,7 @@ public class Fighter implements FighterMethods {
     @Override
     public String toString() {
         return ("name: " + this.name + ", quote: " + this.quote + "," +
-                " speed: " + this.speed + ", strength: " + this.strength + ", power: " + this.power +", attacks: "+attacks.toString());
+                " speed: " + this.speed + ", strength: " + this.strength + ", power: " + this.power +", attacks: "+attacks.toString()+", defences: "+defences.toString());
     }
 
     @Override

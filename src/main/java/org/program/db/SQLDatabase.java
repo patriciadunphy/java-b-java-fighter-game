@@ -5,9 +5,9 @@ import org.program.fighter.Fighter;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 public class SQLDatabase {
     private static SQLDatabase instance;
@@ -16,6 +16,7 @@ public class SQLDatabase {
     private String user = "student";
     private String pass = "123";
 
+    //Singleton for database-connection
     private SQLDatabase() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -45,7 +46,8 @@ public class SQLDatabase {
             e.getStackTrace();
         }
     }
-
+    //Fetching fighters from the database, creating a new instance of Fighter for each fighter,
+    // and putting them in a list of fighters
     public List<Fighter> getFighters(String getFightersStatement) throws SQLException {
         List<Fighter> fightersDb = new ArrayList<Fighter>();
         PreparedStatement getFightersStmt;
@@ -73,6 +75,27 @@ public class SQLDatabase {
         return fightersDb;
     }
 
+    //Takes a list of fighter as attribute. Fetching defence for each fighter
+    // from the database and updates the list of fighters
+    public List<Fighter> addDefense(String getDefenseStatement, List<Fighter> fighters) throws SQLException {
+        PreparedStatement getDefenseStmt;
+        ResultSet myRs;
+        getDefenseStmt = getConnection().prepareStatement(getDefenseStatement);
+        myRs = getDefenseStmt.executeQuery();
+        while (myRs.next()) {
+            String strategyDescription = myRs.getString("strategy_description");
+            String name = myRs.getString("name");
+            for (Fighter f : fighters) {
+                if (f.getName().equalsIgnoreCase(name)) {
+                    f.addDefences(strategyDescription);
+                    fighters.set(fighters.indexOf(f), f);
+                }
+            }
+        }
+        return fighters;
+    }
+    //Takes a list of fighter as attribute. Fetching attacks for each fighter
+    // from the database and updates the list of fighters
     public List<Fighter> addAttacks(String getAttacksStatement, List<Fighter> fighters) throws SQLException {
         PreparedStatement getAttacksStmt;
         ResultSet myRs;
