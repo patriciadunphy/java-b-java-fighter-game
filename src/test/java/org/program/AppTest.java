@@ -12,19 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-{
-    /**
-     * Rigorous Test :-)
-     */
-//    @Test
-//    public void shouldAnswerWithTrue()
-//    {
-//        assertTrue( true );
-//    }
+public class AppTest{
 //    @Test
 //    public void addFightersToListTest() throws SQLException {
 //        SQLDatabase db = SQLDatabase.getInstance();
@@ -35,12 +23,10 @@ public class AppTest
     public void checkListOfFightersTest() throws SQLException {
         SQLDatabase db = SQLDatabase.getInstance();
         SQLStatements stmt = new SQLStatements();
-
-
-        //db.getFighters(stmt.selectAllFighters());
         TournamentFighters a = new TournamentFighters();
-        a.insertFightersFromDb(db.getFighters(stmt.selectAllFighters()));
-
-        a.printFightersList();
+        //---Fetching fighters from db and putting them in Tournament Fighters list---
+        //a.insertFightersFromDb(db.getFighters(stmt.selectAllFighters()));
+        //---Print all fighters in list---
+        //a.printFightersList();
     }
 }

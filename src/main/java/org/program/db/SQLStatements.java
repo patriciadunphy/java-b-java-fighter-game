@@ -8,6 +8,16 @@ public class SQLStatements {
         return allFighters;
     }
 
+    public String getAllAttacks() {
+        String allAttacks = "SELECT a.strategy_description, a.damage, f.name " +
+                "FROM attack AS a " +
+                "LEFT JOIN fighter_attack AS fa " +
+                "ON fa.fk_attack_id = a.attack_id " +
+                "LEFT JOIN fighter AS f " +
+                "ON f.fighter_id = fa.fk_fighter_id";
+        return allAttacks;
+    }
+
     public String selectSpecificFighter() {
         String fighter = "select f.name, f.hp, f.power, f.speed, f.strength " +
                 "from fighter as f " +
@@ -23,13 +33,13 @@ public class SQLStatements {
         return defence;
     }
 
-    public String selectAttackStrategies() {
-        String attack = "SELECT a.strategy_description, a.damage FROM attack AS a " +
-                "LEFT JOIN fighter_attack AS fa ON fa.fk_attack_id = a.attack_id " +
-                "LEFT JOIN fighter AS f ON f.fighter_id = fa.fk_fighter_id " +
-                "WHERE f.name LIKE ?";
-        return attack;
-    }
+//    public String selectAttackStrategies() {
+//        String attack = "SELECT a.strategy_description, a.damage FROM attack AS a " +
+//                "LEFT JOIN fighter_attack AS fa ON fa.fk_attack_id = a.attack_id " +
+//                "LEFT JOIN fighter AS f ON f.fighter_id = fa.fk_fighter_id " +
+//                "WHERE f.name LIKE ?";
+//        return attack;
+//    }
 
 
 //    public String selectActor() {

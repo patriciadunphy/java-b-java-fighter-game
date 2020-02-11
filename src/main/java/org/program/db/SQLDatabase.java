@@ -1,11 +1,13 @@
 package org.program.db;
 
+import org.program.fighter.Attack;
 import org.program.fighter.Fighter;
-import org.program.fighter.TournamentFighters;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SQLDatabase {
     private static SQLDatabase instance;
@@ -44,14 +46,12 @@ public class SQLDatabase {
         }
     }
 
-    public List<Fighter> getFighters(String sqlStatement) throws SQLException {
+    public List<Fighter> getFighters(String getFightersStatement, String getAttacksStatement) throws SQLException {
         List<Fighter> fightersDb = new ArrayList<Fighter>();
-        PreparedStatement myStmt;
+        PreparedStatement getFightersStmt;
         ResultSet myRs;
-        //TournamentFighters tour = null;
-        myStmt = getConnection().prepareStatement(sqlStatement);
-
-        myRs = myStmt.executeQuery();
+        getFightersStmt = getConnection().prepareStatement(getFightersStatement);
+        myRs = getFightersStmt.executeQuery();
 
         while (myRs.next()) {
             String name = myRs.getString("name");
@@ -70,20 +70,35 @@ public class SQLDatabase {
                     .setStrength(strength);
             fightersDb.add(f);
         }
-        return fightersDb;
+        PreparedStatement getAttacksStmt;
+        ResultSet myRs2;
+        getAttacksStmt = getConnection().prepareStatement(getAttacksStatement);
+        myRs2 = getAttacksStmt.executeQuery();
+        while (myRs2.next()){
+            String strategyDescription = myRs2.getString("strategy_description");
+            String name = myRs2.getString("name");
+            int damage = myRs2.getInt("damage");
+            for (Fighter f : fightersDb){
+                if (f.getName() == name){
+                    Attack attack = new Attack()
+                            .setDamage(damage)
+                            .setStrategyDescription(strategyDescription);
+                    f.addAttacks(attack);
+                }
+            }
+        }
+    return fightersDb;
 
-//    public TournamentFighters getFighters(String sqlStatement) throws SQLException {
+
+//    public List<Fighter> getFighters(String sqlStatement) throws SQLException {
+//        List<Fighter> fightersDb = new ArrayList<Fighter>();
 //        PreparedStatement myStmt;
 //        ResultSet myRs;
-//        TournamentFighters tour = null;
 //        myStmt = getConnection().prepareStatement(sqlStatement);
 //
 //        myRs = myStmt.executeQuery();
 //
 //        while (myRs.next()) {
-////            System.out.println(myRs.getString("last_name") + ", " + myRs.getString("first_name") + " - "
-////                    + myRs.getString("title"));
-//
 //            String name = myRs.getString("name");
 //            String quote = myRs.getString("quote");
 //            int hp = myRs.getInt("hp");
@@ -98,17 +113,9 @@ public class SQLDatabase {
 //                    .setPower(power)
 //                    .setSpeed(speed)
 //                    .setStrength(strength);
-//            tour = new TournamentFighters();
-//            tour.addToTournament(f);
-//            //System.out.println(tour.getFighters());
-//            //tour.getFighters();
-//
-//
-//            //Skapa ny fighter och sätt in i TournamentFighters-listan
-//
+//            fightersDb.add(f);
 //        }
-//        return tour;
-
+//        return fightersDb;
 
 //    public void searchActor(String sqlStatement, String lastName, String firstName) throws SQLException {
 //        PreparedStatement myStmt;
