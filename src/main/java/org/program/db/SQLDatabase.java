@@ -42,10 +42,10 @@ public class SQLDatabase {
         }
     }
 
-    public void getFighters(String sqlStatement) throws SQLException {
+    public TournamentFighters getFighters(String sqlStatement) throws SQLException {
         PreparedStatement myStmt;
         ResultSet myRs;
-
+        TournamentFighters tour = null;
         myStmt = getConnection().prepareStatement(sqlStatement);
 
         myRs = myStmt.executeQuery();
@@ -53,6 +53,7 @@ public class SQLDatabase {
         while (myRs.next()) {
 //            System.out.println(myRs.getString("last_name") + ", " + myRs.getString("first_name") + " - "
 //                    + myRs.getString("title"));
+
             String name = myRs.getString("name");
             String quote = myRs.getString("quote");
             int hp = myRs.getInt("hp");
@@ -67,14 +68,16 @@ public class SQLDatabase {
                     .setPower(power)
                     .setSpeed(speed)
                     .setStrength(strength);
-            TournamentFighters tour = new TournamentFighters();
+            tour = new TournamentFighters();
             tour.addToTournament(f);
-            System.out.println(tour.getFighters());
+            //System.out.println(tour.getFighters());
             //tour.getFighters();
+
 
             //Skapa ny fighter och sätt in i TournamentFighters-listan
 
         }
+        return tour;
 
 
 //    public void searchActor(String sqlStatement, String lastName, String firstName) throws SQLException {
@@ -137,6 +140,6 @@ public class SQLDatabase {
 //                    + myRs.getString("title") + ", " + calendar.get(Calendar.YEAR));
 //        }
 //
-//    }
+//
     }
 }
