@@ -23,10 +23,14 @@ public class Match {
      *Skriv i terminalen mottoet för den vinnande fighter.
 
      */
-    public void gameStart(List<Fighter> tour) throws SQLException {
-        int r = (int) (Math.random() * (tour.size()))+1;
-        System.out.println(r);
-        System.out.println(tour.size());
-
+    //Structure for matches
+    public void gameStart(TournamentFighters tour) {
+        int listSize = tour.getListSize();
+        while (listSize != 0) {
+            int r = (int) (Math.random() * (tour.getListSize()));
+            System.out.println(tour.getAFighter(r));
+            tour.removeFromTournament(tour.getAFighter(r));
+            listSize -= 1;
+        }
     }
 }

@@ -22,6 +22,9 @@ public class TournamentFighters {
     public List<Fighter> getFighters() {
         return fighters;
     }
+    public Fighter getAFighter(int i) {
+        return fighters.get(i);
+    }
     public void insertFightersFromDb(List<Fighter> fighters){
         this.fighters.addAll(fighters);
     }

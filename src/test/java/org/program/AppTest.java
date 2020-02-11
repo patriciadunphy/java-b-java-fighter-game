@@ -35,17 +35,26 @@ public class AppTest{
 
         db.closeConnection(db.getConnection());
     }
-    @Test
-    public void testRandom() throws SQLException {
-        TournamentFighters a = new TournamentFighters();
-        Match match = new Match();
-        a.createMatchList();
-        match.gameStart(a.getFighters());
-    }
     //@Test
     public void testTournamentFightersTest() throws SQLException {
         TournamentFighters a = new TournamentFighters();
         a.createMatchList();
         a.printFightersList();
     }
+    @Test
+    public void matchTest() throws SQLException {
+        TournamentFighters a = new TournamentFighters();
+        Match match = new Match();
+        a.createMatchList();
+        match.gameStart(a);
+    }
+
+//    public void testRandom() throws SQLException {
+//        TournamentFighters a = new TournamentFighters();
+//        Match match = new Match();
+//        a.createMatchList();
+//        match.gameStart(a.getFighters());
+//    }
+    //@Test
+
 }
