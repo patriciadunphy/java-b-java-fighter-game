@@ -27,20 +27,5 @@ public class TournamentFighters {
             System.out.println(fighter);
         }
     }
-
-//    @Override
-//    public String toString() {
-//        return (this.fighters
-//
-//    }
-
-
-//    public void getFighters(){
-//        System.out.println(fighters.toString());
-//    }
-//    @Override
-//    public String toString(){
-//        return fighters.toString();
-//    }
     //Create observer and observe when a fighter is removed from tournament due to losing?
 }

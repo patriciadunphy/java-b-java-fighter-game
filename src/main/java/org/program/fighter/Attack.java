@@ -24,8 +24,6 @@ public class Attack {
 
     @Override
     public String toString() {
-//        return ("name: " + this.name + ", quote: " + this.quote + "," +
-//                " speed: " + this.speed + ", strength: " + this.strength + ", power: " + this.power + ", attacks: " + attacks.toString());
         return ("move: "+this.strategyDescription+", damage: "+damage);
     }
 }
