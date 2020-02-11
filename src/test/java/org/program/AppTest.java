@@ -28,6 +28,10 @@ public class AppTest{
         a.insertFightersFromDb(db.getFighters(stmt.selectAllFighters()));
         //---Adding attacks to player and updating tournament fighters list
         db.addAttacks(stmt.getAllAttacks(), a.getFighters());
+        //---Adding defence to player and updating tournament fighters list
+        db.addDefense(stmt.selectDefenceStrategies(), a.getFighters());
         a.printFightersList();
+
+        db.closeConnection(db.getConnection());
     }
 }

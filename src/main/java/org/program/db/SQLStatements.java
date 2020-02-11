@@ -26,10 +26,9 @@ public class SQLStatements {
     }
 
     public String selectDefenceStrategies() {
-        String defence = "SELECT d.strategy_description FROM defend AS d " +
+        String defence = "SELECT d.strategy_description, f.name FROM defend AS d " +
                 "LEFT JOIN fighter_defend AS fd ON fd.fk_defend_id = d.defend_id " +
-                "LEFT JOIN fighter AS f ON f.fighter_id = fd.fk_fighter_id " +
-                "WHERE f.name LIKE ?";
+                "LEFT JOIN fighter AS f ON f.fighter_id = fd.fk_fighter_id";
         return defence;
     }
 
