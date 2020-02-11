@@ -1,11 +1,18 @@
 package org.program.fighter;
 
+import org.program.db.SQLDatabase;
+import org.program.db.SQLStatements;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TournamentFighters {
     private List<Fighter> fighters = new ArrayList<Fighter>();
 
+    public int getListSize(){
+        return fighters.size();
+    }
     public void addToTournament(Fighter fighter){
         this.fighters.add(fighter);
     }
@@ -28,19 +35,20 @@ public class TournamentFighters {
         }
     }
 
-//    @Override
-//    public String toString() {
-//        return (this.fighters
-//
-//    }
+    public void createMatchList() throws SQLException {
+        SQLDatabase db = SQLDatabase.getInstance();
+        SQLStatements stmt = new SQLStatements();
+        TournamentFighters a = new TournamentFighters();
+        //---Fetching fighters from db and putting them in Tournament Fighters list---
+        a.insertFightersFromDb(db.getFighters(stmt.selectAllFighters()));
+        //---Adding attacks to player and updating tournament fighters list
+        db.addAttacks(stmt.getAllAttacks(), a.getFighters());
+        //---Adding defence to player and updating tournament fighters list
+        db.addDefense(stmt.selectDefenceStrategies(), a.getFighters());
+        //a.printFightersList();
+        this.fighters.addAll(a.getFighters());
+        db.closeConnection(db.getConnection());
 
-
-//    public void getFighters(){
-//        System.out.println(fighters.toString());
-//    }
-//    @Override
-//    public String toString(){
-//        return fighters.toString();
-//    }
+    }
     //Create observer and observe when a fighter is removed from tournament due to losing?
 }

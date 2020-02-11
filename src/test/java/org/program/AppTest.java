@@ -7,6 +7,7 @@ import org.program.db.SQLDatabase;
 import org.program.db.SQLStatements;
 import org.program.fighter.Fighter;
 import org.program.fighter.TournamentFighters;
+import org.program.match.Match;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class AppTest{
 //        SQLStatements stmt = new SQLStatements();
 //        db.getFighters(stmt.selectAllFighters());
 //    }
-    @Test
+   // @Test
     public void checkListOfFightersTest() throws SQLException {
         SQLDatabase db = SQLDatabase.getInstance();
         SQLStatements stmt = new SQLStatements();
@@ -33,5 +34,18 @@ public class AppTest{
         a.printFightersList();
 
         db.closeConnection(db.getConnection());
+    }
+    @Test
+    public void testRandom() throws SQLException {
+        TournamentFighters a = new TournamentFighters();
+        Match match = new Match();
+        a.createMatchList();
+        match.gameStart(a.getFighters());
+    }
+    //@Test
+    public void testTournamentFightersTest() throws SQLException {
+        TournamentFighters a = new TournamentFighters();
+        a.createMatchList();
+        a.printFightersList();
     }
 }
