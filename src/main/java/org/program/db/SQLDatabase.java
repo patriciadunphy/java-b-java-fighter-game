@@ -46,7 +46,7 @@ public class SQLDatabase {
         }
     }
 
-    public List<Fighter> getFighters(String getFightersStatement, String getAttacksStatement) throws SQLException {
+    public List<Fighter> getFighters(String getFightersStatement) throws SQLException {
         List<Fighter> fightersDb = new ArrayList<Fighter>();
         PreparedStatement getFightersStmt;
         ResultSet myRs;
@@ -70,70 +70,32 @@ public class SQLDatabase {
                     .setStrength(strength);
             fightersDb.add(f);
         }
+        return fightersDb;
+    }
+
+    public List<Fighter> addAttacks(String getAttacksStatement, List<Fighter> fighters) throws SQLException {
         PreparedStatement getAttacksStmt;
-        ResultSet myRs2;
+        ResultSet myRs;
         getAttacksStmt = getConnection().prepareStatement(getAttacksStatement);
-        myRs2 = getAttacksStmt.executeQuery();
-        while (myRs2.next()){
-            String strategyDescription = myRs2.getString("strategy_description");
-            String name = myRs2.getString("name");
-            int damage = myRs2.getInt("damage");
-            for (Fighter f : fightersDb){
-                if (f.getName() == name){
+        myRs = getAttacksStmt.executeQuery();
+        while (myRs.next()) {
+            String strategyDescription = myRs.getString("strategy_description");
+            String name = myRs.getString("name");
+            int damage = myRs.getInt("damage");
+            for (Fighter f : fighters) {
+                if (f.getName().equalsIgnoreCase(name)) {
                     Attack attack = new Attack()
                             .setDamage(damage)
                             .setStrategyDescription(strategyDescription);
                     f.addAttacks(attack);
+                    fighters.set(fighters.indexOf(f), f);
                 }
             }
         }
-    return fightersDb;
+        return fighters;
+    }
+}
 
-
-//    public List<Fighter> getFighters(String sqlStatement) throws SQLException {
-//        List<Fighter> fightersDb = new ArrayList<Fighter>();
-//        PreparedStatement myStmt;
-//        ResultSet myRs;
-//        myStmt = getConnection().prepareStatement(sqlStatement);
-//
-//        myRs = myStmt.executeQuery();
-//
-//        while (myRs.next()) {
-//            String name = myRs.getString("name");
-//            String quote = myRs.getString("quote");
-//            int hp = myRs.getInt("hp");
-//            int power = myRs.getInt("power");
-//            int speed = myRs.getInt("speed");
-//            int strength = myRs.getInt("strength");
-//
-//            Fighter f = new Fighter()
-//                    .setName(name)
-//                    .setQuote(quote)
-//                    .setHp(hp)
-//                    .setPower(power)
-//                    .setSpeed(speed)
-//                    .setStrength(strength);
-//            fightersDb.add(f);
-//        }
-//        return fightersDb;
-
-//    public void searchActor(String sqlStatement, String lastName, String firstName) throws SQLException {
-//        PreparedStatement myStmt;
-//        ResultSet myRs;
-//
-//        myStmt = getConnection().prepareStatement(sqlStatement);
-//
-//        myStmt.setString(1, lastName + "%");
-//        myStmt.setString(2, firstName + "%");
-//
-//        myRs = myStmt.executeQuery();
-//
-//        while (myRs.next()) {
-//            System.out.println(myRs.getString("first_name") + " " + myRs.getString("last_name"));
-//        }
-//    }
-//
-//
 //    public void executeUpdate(String sqlStatement, String lastName, String firstName) throws SQLException {
 //        PreparedStatement myStmt;
 //
@@ -178,5 +140,4 @@ public class SQLDatabase {
 //        }
 //
 //
-    }
-}
+

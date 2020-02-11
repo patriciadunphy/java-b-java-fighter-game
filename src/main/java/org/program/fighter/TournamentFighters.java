@@ -18,6 +18,10 @@ public class TournamentFighters {
     public void insertFightersFromDb(List<Fighter> fighters){
         this.fighters.addAll(fighters);
     }
+    public void updateFighterInList(int i,Fighter fighter){
+        this.fighters.set(i, fighter);
+    }
+
     public void printFightersList(){
         for (Fighter fighter : this.fighters){
             System.out.println(fighter);

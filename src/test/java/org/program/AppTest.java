@@ -25,8 +25,9 @@ public class AppTest{
         SQLStatements stmt = new SQLStatements();
         TournamentFighters a = new TournamentFighters();
         //---Fetching fighters from db and putting them in Tournament Fighters list---
-        //a.insertFightersFromDb(db.getFighters(stmt.selectAllFighters()));
-        //---Print all fighters in list---
-        //a.printFightersList();
+        a.insertFightersFromDb(db.getFighters(stmt.selectAllFighters()));
+        //---Adding attacks to player and updating tournament fighters list
+        db.addAttacks(stmt.getAllAttacks(), a.getFighters());
+        a.printFightersList();
     }
 }
