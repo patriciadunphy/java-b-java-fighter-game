@@ -11,18 +11,27 @@ public class TournamentFighters {
     private List<Fighter> fighters = new ArrayList<Fighter>();
 
     public int getListSize(){
+
         return fighters.size();
     }
     public void addToTournament(Fighter fighter){
+
         this.fighters.add(fighter);
     }
     public void removeFromTournament(Fighter fighter){
+
         this.fighters.remove(fighter);
     }
     public List<Fighter> getFighters() {
+
         return fighters;
     }
+    public Fighter getAFighter(int i) {
+
+        return fighters.get(i);
+    }
     public void insertFightersFromDb(List<Fighter> fighters){
+
         this.fighters.addAll(fighters);
     }
     public void updateFighterInList(int i,Fighter fighter){

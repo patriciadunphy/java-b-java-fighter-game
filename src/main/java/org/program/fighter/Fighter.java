@@ -13,17 +13,19 @@ public class Fighter implements FighterMethods {
     private List<Attack> attacks = new ArrayList();
     private List<String> defences = new ArrayList();
 
-    public void addDefences(String defence){
+    public void addDefences(String defence) {
         defences.add(defence);
     }
-    public List<String> getDefences(){
+
+    public List<String> getDefences() {
         return defences;
     }
 
     public void addAttacks(Attack a) {
         attacks.add(a);
     }
-    public List<Attack> getAttacks(){
+
+    public List<Attack> getAttacks() {
         return attacks;
     }
 
@@ -46,6 +48,10 @@ public class Fighter implements FighterMethods {
         return this;
     }
 
+    public int getHp() {
+        return hp;
+    }
+
     public Fighter setSpeed(int speed) {
         this.speed = speed;
         return this;
@@ -64,16 +70,26 @@ public class Fighter implements FighterMethods {
     @Override
     public String toString() {
         return ("name: " + this.name + ", quote: " + this.quote + "," +
-                " speed: " + this.speed + ", strength: " + this.strength + ", power: " + this.power +", attacks: "+attacks.toString()+", defences: "+defences.toString());
+                " speed: " + this.speed + ", strength: " + this.strength + ", power: " + this.power + ", attacks: " + attacks.toString() + ", defences: " + defences.toString());
     }
 
     @Override
-    public int defend() {
-        return 0;
+    public void defend(int chosenDefence, int damage) {
+        System.out.println(this.name+" choose to defend with a "+this.defences.get(chosenDefence));
+        int chance = (int) (Math.random() * (1 - 10)) + 10;
+        if (chance > 5) {
+            System.out.println("The attack caused: " + damage+" in damage.");
+            this.hp -= damage;
+            System.out.println("Current HP: " + this.getHp());
+        } else {
+            System.out.println("Attack blocked, HP stays unchanged.");
+        }
     }
 
     @Override
-    public int attack(int damage) {
+    public int attack(int chosenAttack) {
+        System.out.println(this.name+" attacks with a "+this.attacks.get(chosenAttack).getStrategyDescription());
+        int damage = this.attacks.get(chosenAttack).getDamage();
         return damage;
     }
 
