@@ -3,9 +3,9 @@ package org.program.match;
 import org.program.fighter.Fighter;
 import org.program.fighter.TournamentFighters;
 
-import java.sql.SQLException;
+
 import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.List;
 
 public class Match {
@@ -35,7 +35,7 @@ public class Match {
 //        }
 //    }
     public void gameStart(TournamentFighters tour) {
-        List<Fighter> semiFinal = new ArrayList<Fighter>();
+        List<Fighter> semiFinal = new ArrayList<>();
         int listSize = tour.getListSize();
         while (listSize >=2){
             int playerOne = (int) (Math.random() * (tour.getListSize()));
@@ -63,6 +63,11 @@ public class Match {
             semiFinal.remove(semiFinal.get(playerTwo));
             listSize -= 1;
             System.out.println("------------");
+        }
+    }
+    public void startGame2(TournamentFighters tour){
+        while (tour.getListSize() !=0){
+
         }
     }
 }
