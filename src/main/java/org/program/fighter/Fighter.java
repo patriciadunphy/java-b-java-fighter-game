@@ -78,7 +78,7 @@ public class Fighter implements FighterMethods {
         System.out.println(this.name+" choose to defend with a "+this.defences.get(chosenDefence));
         int chance = (int) (Math.random() * (1 - 10)) + 10;
         if (chance > 5) {
-            System.out.println("The attack caused: " + damage+" in damage.");
+            System.out.println("The attack caused " + damage+" HP in damage.");
             this.hp -= damage;
             System.out.println("Current HP: " + this.getHp());
         } else {
