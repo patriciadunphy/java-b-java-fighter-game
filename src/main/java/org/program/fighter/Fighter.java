@@ -77,10 +77,14 @@ public class Fighter implements FighterMethods {
     public void defend(int chosenDefence, int damage) {
         System.out.println(this.name+" choose to defend with a "+this.defences.get(chosenDefence));
         int chance = (int) (Math.random() * (1 - 10)) + 10;
-        if (chance > 5) {
+        if (chance > 2) {
             System.out.println("The attack caused " + damage+" HP in damage.");
             this.hp -= damage;
+            //Lägg till logik: ifall HP blir under 0 sätt HP till 0.
+            if (this.getHp() > 0)
             System.out.println("Current HP: " + this.getHp());
+            else
+                System.out.println(this.name+" was defeated.");
         } else {
             System.out.println("Attack blocked, HP stays unchanged.");
         }

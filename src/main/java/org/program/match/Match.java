@@ -69,8 +69,7 @@ public class Match {
         int listSize = tour.getListSize();
         Fighter player1;
         Fighter player2;
-        int player1wins = 0;
-        int player2wins = 0;
+
         while (tour.getListSize() != 0) {
             //Skapar ett random nummer mellan 0 och tour-listans storlek
             int iPlayer1 = (int) (Math.random() * (tour.getListSize()));
@@ -86,29 +85,29 @@ public class Match {
 //            boolean playerIsDead = false;
 
             //loop för tre ronder
+            int player1wins = 0;
+            int player2wins = 0;
             for (int i = 1; i < 4; i++) {
+
                 boolean playerIsDead = false;
                 System.out.println("Round: " + i);
                 while (playerIsDead == false) {
                     //Här läggs scanner till
                     int playerDefence;
                     int playerAttack;
+                    //player1 attackerar player2
                     player2.defend(playerDefence = 2, player1.attack(playerAttack = 1));
-                    if (player2.getHp() <= 0){
-                        player1wins += 1;
-                        playerIsDead = true;
-
-                        //player2.setHp(0);
-                    } else {
+                    //om player2 inte är död attackerar player2
+                    if (player2.getHp() > 0){
                         player1.defend(playerDefence = 2, player2.attack(playerAttack = 2));
-                        if (player1.getHp() <= 0) {
-                            player2wins += 1;
-                            playerIsDead = true;
-
-                            //player1.setHp(0);
-                        }
                     }
-
+                    if (player2.getHp() <= 0){
+                        player1wins+=1;
+                        playerIsDead = true;
+                    } else if(player1.getHp() <=0){
+                        player2wins+=1;
+                        playerIsDead = true;
+                    }
                 }
                 //Återställer hp till nästa rond
                 player1.setHp(100);
