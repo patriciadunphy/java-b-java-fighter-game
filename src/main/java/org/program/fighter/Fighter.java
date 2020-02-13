@@ -42,6 +42,9 @@ public class Fighter implements FighterMethods {
         this.quote = quote;
         return this;
     }
+    public String getQuote(){
+        return quote;
+    }
 
     public Fighter setHp(int hp) {
         this.hp = hp;

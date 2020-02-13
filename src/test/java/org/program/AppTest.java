@@ -10,14 +10,14 @@ import org.program.tournament.Tournament;
 
 import java.sql.SQLException;
 
-public class AppTest{
-//    @Test
-//    public void addFightersToListTest() throws SQLException {
-//        SQLDatabase db = SQLDatabase.getInstance();
-//        SQLStatements stmt = new SQLStatements();
-//        db.getFighters(stmt.selectAllFighters());
-//    }
-   // @Test
+public class AppTest {
+    //    @Test
+    public void addFightersToListTest() throws SQLException {
+        SQLDatabase db = SQLDatabase.getInstance();
+        SQLStatements stmt = new SQLStatements();
+        db.getFighters(stmt.selectAllFighters());
+    }
+    // @Test
     public void checkListOfFightersTest() throws SQLException {
         SQLDatabase db = SQLDatabase.getInstance();
         SQLStatements stmt = new SQLStatements();
@@ -32,6 +32,7 @@ public class AppTest{
 
         db.closeConnection(db.getConnection());
     }
+
     //@Test
     public void testTournamentFightersTest() throws SQLException {
         FighterList a = new FighterList();
@@ -40,63 +41,37 @@ public class AppTest{
     }
     @Test
     public void matchTest() throws SQLException {
-        FighterList a = new FighterList();
+        FighterList firstList = new FighterList();
+        FighterList secondList = new FighterList();
+        FighterList finalList = new FighterList();
         Tournament match = new Tournament();
-        a.createMatchList();
-        match.startTournament(a);
-        //FORTSÄTT MED DETTA TEST!
+        firstList.createMatchList();
+        int rounds = 0;
+        while (firstList.getListSize() >= 2 || secondList.getListSize() >= 2) {
+            //Startar första delen av turneringen
+            secondList = match.startTournament(firstList);
+            //Startar andra delen av turneringen genom att
+            //ta listan med de som gått vidare köra startTournament-metoden igen
+            if (secondList.getListSize()>=2){
+                firstList = match.startTournament(secondList);
+            }
+        }
+        if (secondList.getListSize() == 0) {
+            System.out.println("The winner is: ");
+            System.out.println(firstList.getAFighter(0).getName());
+        } else {
+            System.out.println("The winner is: ");
+            System.out.println(secondList.getAFighter(0).getName());
+        }
+        //Kontrollerar att ena listan är tom och den andra innehåller vinnaren
+        //System.out.println(secondList.getListSize());
+        //System.out.println(firstList.getListSize());
+
     }
+
     //@Test
-    public void returnOneOrZeroTest(){
-//        System.out.println((int) (Math.random() * (1-0))+0);
-        System.out.println((int) (Math.random()*(1-10))+10);
+    public void returnOneOrZeroTest() {
+        System.out.println((int) (Math.random() * (1 - 10)) + 10);
     }
-
-//    @Test
-//    public void AttackAndDefendTest() throws SQLException {
-//        SQLDatabase db = SQLDatabase.getInstance();
-//        SQLStatements stmt = new SQLStatements();
-//        TournamentFighters tournament = new TournamentFighters();
-//        //Hämtar fighters från databasen
-//        tournament.insertFightersFromDb(db.getFighters(stmt.selectAllFighters()));
-//        //Lägger till attacker i listan över fighters
-//        db.addAttacks(stmt.getAllAttacks(), tournament.getFighters());
-//        //Lägger till defend-metoder i listan över fighters
-//        db.addDefense(stmt.selectDefenceStrategies(), tournament.getFighters());
-//        Fighter player1 = tournament.getAFighter(2);
-//        Fighter player2 = tournament.getAFighter(3);
-//        int damage = player1.attack(1);
-//        player2.defend(1,damage);
-//
-//    }
-//    @Test
-//    public void testAttackMethod() throws SQLException {
-//        SQLDatabase db = SQLDatabase.getInstance();
-//        SQLStatements stmt = new SQLStatements();
-//        TournamentFighters tournament = new TournamentFighters();
-//
-//        tournament.insertFightersFromDb(db.getFighters(stmt.selectAllFighters()));
-//        db.addAttacks(stmt.getAllAttacks(), tournament.getFighters());
-//        db.addDefense(stmt.selectDefenceStrategies(), tournament.getFighters());
-//        tournament.getAFighter(1).attack((tournament.getAFighter(2)), 1);
-//    }
-
-//    @Test
-//    public void fightTest() throws SQLException {
-//        SQLDatabase db = SQLDatabase.getInstance();
-//        SQLStatements stmt = new SQLStatements();
-//        TournamentFighters a = new TournamentFighters();
-//        a.insertFightersFromDb(db.getFighters(stmt.selectAllFighters()));
-//        Fight fight = new Fight();
-//        fight.executeFight(a.getAFighter(2), a.getAFighter(3));
-//    }
-
-//    public void testRandom() throws SQLException {
-//        TournamentFighters a = new TournamentFighters();
-//        Match match = new Match();
-//        a.createMatchList();
-//        match.gameStart(a.getFighters());
-//    }
-    //@Test
 
 }
