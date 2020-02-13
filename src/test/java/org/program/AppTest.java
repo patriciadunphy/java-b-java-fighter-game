@@ -39,12 +39,12 @@ public class AppTest{
         a.createMatchList();
         a.printFightersList();
     }
-    //@Test
+    @Test
     public void matchTest() throws SQLException {
         TournamentFighters a = new TournamentFighters();
         Match match = new Match();
         a.createMatchList();
-        match.gameStart(a);
+        match.startGame2(a);
     }
     //@Test
     public void returnOneOrZeroTest(){
@@ -52,23 +52,23 @@ public class AppTest{
         System.out.println((int) (Math.random()*(1-10))+10);
     }
 
-    @Test
-    public void AttackAndDefendTest() throws SQLException {
-        SQLDatabase db = SQLDatabase.getInstance();
-        SQLStatements stmt = new SQLStatements();
-        TournamentFighters tournament = new TournamentFighters();
-        //Hämtar fighters från databasen
-        tournament.insertFightersFromDb(db.getFighters(stmt.selectAllFighters()));
-        //Lägger till attacker i listan över fighters
-        db.addAttacks(stmt.getAllAttacks(), tournament.getFighters());
-        //Lägger till defend-metoder i listan över fighters
-        db.addDefense(stmt.selectDefenceStrategies(), tournament.getFighters());
-        Fighter player1 = tournament.getAFighter(2);
-        Fighter player2 = tournament.getAFighter(3);
-        int damage = player1.attack(1);
-        player2.defend(1,damage);
-
-    }
+//    @Test
+//    public void AttackAndDefendTest() throws SQLException {
+//        SQLDatabase db = SQLDatabase.getInstance();
+//        SQLStatements stmt = new SQLStatements();
+//        TournamentFighters tournament = new TournamentFighters();
+//        //Hämtar fighters från databasen
+//        tournament.insertFightersFromDb(db.getFighters(stmt.selectAllFighters()));
+//        //Lägger till attacker i listan över fighters
+//        db.addAttacks(stmt.getAllAttacks(), tournament.getFighters());
+//        //Lägger till defend-metoder i listan över fighters
+//        db.addDefense(stmt.selectDefenceStrategies(), tournament.getFighters());
+//        Fighter player1 = tournament.getAFighter(2);
+//        Fighter player2 = tournament.getAFighter(3);
+//        int damage = player1.attack(1);
+//        player2.defend(1,damage);
+//
+//    }
 //    @Test
 //    public void testAttackMethod() throws SQLException {
 //        SQLDatabase db = SQLDatabase.getInstance();
