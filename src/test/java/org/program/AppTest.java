@@ -5,9 +5,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.program.db.SQLDatabase;
 import org.program.db.SQLStatements;
-import org.program.fighter.Fighter;
-import org.program.fighter.TournamentFighters;
-import org.program.match.Match;
+import org.program.fighter.FighterList;
+import org.program.tournament.Tournament;
 
 import java.sql.SQLException;
 
@@ -22,7 +21,7 @@ public class AppTest{
     public void checkListOfFightersTest() throws SQLException {
         SQLDatabase db = SQLDatabase.getInstance();
         SQLStatements stmt = new SQLStatements();
-        TournamentFighters a = new TournamentFighters();
+        FighterList a = new FighterList();
         //---Fetching fighters from db and putting them in Tournament Fighters list---
         a.insertFightersFromDb(db.getFighters(stmt.selectAllFighters()));
         //---Adding attacks to player and updating tournament fighters list
@@ -35,16 +34,17 @@ public class AppTest{
     }
     //@Test
     public void testTournamentFightersTest() throws SQLException {
-        TournamentFighters a = new TournamentFighters();
+        FighterList a = new FighterList();
         a.createMatchList();
         a.printFightersList();
     }
     @Test
     public void matchTest() throws SQLException {
-        TournamentFighters a = new TournamentFighters();
-        Match match = new Match();
+        FighterList a = new FighterList();
+        Tournament match = new Tournament();
         a.createMatchList();
-        match.startGame2(a);
+        match.startTournament(a);
+        //FORTSÄTT MED DETTA TEST!
     }
     //@Test
     public void returnOneOrZeroTest(){

@@ -5,15 +5,21 @@ import org.program.db.SQLStatements;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class TournamentFighters {
+public class FighterList {
     private List<Fighter> fighters = new ArrayList<Fighter>();
 
     public int getListSize(){
 
         return fighters.size();
     }
+    public void shuffleList(){
+        Collections.shuffle(this.fighters);
+        //this.fighters.
+    }
+
     public void addToTournament(Fighter fighter){
 
         this.fighters.add(fighter);
@@ -47,7 +53,7 @@ public class TournamentFighters {
     public void createMatchList() throws SQLException {
         SQLDatabase db = SQLDatabase.getInstance();
         SQLStatements stmt = new SQLStatements();
-        TournamentFighters a = new TournamentFighters();
+        FighterList a = new FighterList();
         //---Fetching fighters from db and putting them in Tournament Fighters list---
         a.insertFightersFromDb(db.getFighters(stmt.selectAllFighters()));
         //---Adding attacks to player and updating tournament fighters list
@@ -57,6 +63,9 @@ public class TournamentFighters {
         //a.printFightersList();
         this.fighters.addAll(a.getFighters());
         db.closeConnection(db.getConnection());
+        //Shuffles the fighters in the list
+        Collections.shuffle(this.fighters);
+
 
     }
     //Create observer and observe when a fighter is removed from tournament due to losing?
