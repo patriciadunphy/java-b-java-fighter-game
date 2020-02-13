@@ -19,87 +19,20 @@ public class Tournament {
      *Skriv i terminalen mottoet för den vinnande fighter.
 
      */
-//    public FighterList startTournament(FighterList tour) {
-//        //int listSize = tour.getListSize();
-//        Fighter player1;
-//        Fighter player2;
-//        FighterList nextRound = new FighterList();
-//
-//        while (tour.getListSize() != 0) {
-//            //Skapar ett random nummer mellan 0 och tour-listans storlek
-//            int iPlayer1 = (int) (Math.random() * (tour.getListSize()));
-//            //Skapar ett nytt fighter-objekt och kopierar in fightern som finns på positionen iPlayer1
-//            player1 = tour.getAFighter(iPlayer1);
-//            //Tar bort fightern från tour-listan
-//            tour.removeFromTournament(tour.getAFighter(iPlayer1));
-//            //Gör detsamma för player2
-//            int iPlayer2 = (int) (Math.random() * (tour.getListSize()));
-//            player2 = tour.getAFighter(iPlayer2);
-//            tour.removeFromTournament(tour.getAFighter(iPlayer2));
-//            int player1wins = 0;
-//            int player2wins = 0;
-//            //loop för tre ronder
-//            for (int i = 1; i < 4; i++) {
-//
-//                boolean playerIsDead = false;
-//                System.out.println("Round: " + i);
-//                while (playerIsDead == false) {
-//                    //Här läggs scanner till
-//                    int playerDefence;
-//                    int playerAttack;
-//                    //player1 attackerar player2
-//                    player2.defend(playerDefence = 2, player1.attack(playerAttack = 1));
-//                    //om player2 inte är död attackerar player2
-//                    if (player2.getHp() > 0) {
-//                        player1.defend(playerDefence = 2, player2.attack(playerAttack = 2));
-//                    }
-//                    if (player2.getHp() <= 0) {
-//                        player1wins += 1;
-//                        playerIsDead = true;
-//                    } else if (player1.getHp() <= 0) {
-//                        player2wins += 1;
-//                        playerIsDead = true;
-//                    }
-//                }
-//                //Återställer hp till nästa rond. MÅSTE FINNAS BÄTTRE SÄTT!
-//                player1.setHp(100);
-//                player2.setHp(100);
-//            }
-//            if (player1wins > player2wins) {
-//                System.out.println(player1.getName() + ": \"" + player1.getQuote() + "\"");
-//                //lägger till player1 i ny lista
-//                nextRound.addToTournament(player1);
-//            } else if (player2wins > player1wins) {
-//                System.out.println(player2.getName() + ": \"" + player2.getQuote() + "\"");
-//                //lägger till player2 i ny lista
-//                nextRound.addToTournament(player2);
-//            } else {
-//                System.out.println("Something went wrong in the fight");
-//            }
-//            //nextRound.printFightersList();
-//
-//        }
-//        return nextRound;
-//    }
     public FighterList startTournament(FighterList tour) {
-        //int listSize = tour.getListSize();
         Fighter player1;
         Fighter player2;
         FighterList nextRound = new FighterList();
 
         while (tour.getListSize() != 0) {
             int iPlayer1 = 0;
-            //Skapar ett nytt fighter-objekt och kopierar in fightern som finns på positionen iPlayer1
             player1 = tour.getAFighter(iPlayer1);
-            //Tar bort fightern från tour-listan
             tour.removeFromTournament(tour.getAFighter(iPlayer1));
-            //Gör detsamma för player2
             int iPlayer2 = 0;
             player2 = tour.getAFighter(iPlayer2);
             tour.removeFromTournament(tour.getAFighter(iPlayer2));
             int player1wins = 0;
             int player2wins = 0;
-            //loop för tre ronder
             for (int i = 1; i < 4; i++) {
 
                 boolean playerIsDead = false;
@@ -108,9 +41,7 @@ public class Tournament {
                     //Här läggs scanner till
                     int playerDefence;
                     int playerAttack;
-                    //player1 attackerar player2
                     player2.defend(playerDefence = 2, player1.attack(playerAttack = 1));
-                    //om player2 inte är död attackerar player2
                     if (player2.getHp() > 0) {
                         player1.defend(playerDefence = 2, player2.attack(playerAttack = 2));
                     }
@@ -128,17 +59,13 @@ public class Tournament {
             }
             if (player1wins > player2wins) {
                 System.out.println(player1.getName() + ": \"" + player1.getQuote() + "\"");
-                //lägger till player1 i ny lista
                 nextRound.addToTournament(player1);
             } else if (player2wins > player1wins) {
                 System.out.println(player2.getName() + ": \"" + player2.getQuote() + "\"");
-                //lägger till player2 i ny lista
                 nextRound.addToTournament(player2);
             } else {
                 System.out.println("Something went wrong in the fight");
             }
-            //nextRound.printFightersList();
-
         }
         return nextRound;
     }
