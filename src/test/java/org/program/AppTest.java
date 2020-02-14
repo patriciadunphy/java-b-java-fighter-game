@@ -12,25 +12,36 @@ import java.sql.SQLException;
 
 public class AppTest {
     //    @Test
-    public void addFightersToListTest() throws SQLException {
-        SQLDatabase db = SQLDatabase.getInstance();
-        SQLStatements stmt = new SQLStatements();
-        db.getFighters(stmt.selectAllFighters());
-    }
-    // @Test
-    public void checkListOfFightersTest() throws SQLException {
-        SQLDatabase db = SQLDatabase.getInstance();
-        SQLStatements stmt = new SQLStatements();
+//    public void addFightersToListTest() throws SQLException {
+//        SQLDatabase db = SQLDatabase.getInstance();
+//        SQLStatements stmt = new SQLStatements();
+//        db.getFighters(stmt.selectAllFighters());
+//    }
+//    // @Test
+//    public void checkListOfFightersTest() throws SQLException {
+//        SQLDatabase db = SQLDatabase.getInstance();
+//        SQLStatements stmt = new SQLStatements();
+//        FighterList a = new FighterList();
+//        //---Fetching fighters from db and putting them in Tournament Fighters list---
+//        a.insertFightersFromDb(db.getFighters(stmt.selectAllFighters()));
+//        //---Adding attacks to player and updating tournament fighters list
+//        db.addAttacks(stmt.getAllAttacks(), a.getFighters());
+//        //---Adding defence to player and updating tournament fighters list
+//        db.addDefense(stmt.selectDefenceStrategies(), a.getFighters());
+//        a.printFightersList();
+//
+//        db.closeConnection(db.getConnection());
+//    }
+    @Test
+    public void getFightersInclAttacksAndDefenceTest() throws SQLException {
+//        SQLDatabase db = SQLDatabase.getInstance();
+//        SQLStatements stmt = new SQLStatements();
+//        FighterList fighters = new FighterList();
+//        fighters.insertFightersFromDb(db.getFightersWithAttacksAndDefence(stmt.selectAllFighters(), stmt.selectDefenceStrategies(), stmt.getAllAttacks()));
+//        fighters.printFightersList();
         FighterList a = new FighterList();
-        //---Fetching fighters from db and putting them in Tournament Fighters list---
-        a.insertFightersFromDb(db.getFighters(stmt.selectAllFighters()));
-        //---Adding attacks to player and updating tournament fighters list
-        db.addAttacks(stmt.getAllAttacks(), a.getFighters());
-        //---Adding defence to player and updating tournament fighters list
-        db.addDefense(stmt.selectDefenceStrategies(), a.getFighters());
+        a.createMatchList();
         a.printFightersList();
-
-        db.closeConnection(db.getConnection());
     }
 
     //@Test
@@ -39,14 +50,13 @@ public class AppTest {
         a.createMatchList();
         a.printFightersList();
     }
-    @Test
+    //@Test
     public void matchTest() throws SQLException {
         FighterList firstList = new FighterList();
         FighterList secondList = new FighterList();
         FighterList finalList = new FighterList();
         Tournament match = new Tournament();
         firstList.createMatchList();
-        int rounds = 0;
         while (firstList.getListSize() >= 2 || secondList.getListSize() >= 2) {
             //Startar första delen av turneringen
             secondList = match.startTournament(firstList);
@@ -70,8 +80,9 @@ public class AppTest {
     }
 
     //@Test
-    public void returnOneOrZeroTest() {
-        System.out.println((int) (Math.random() * (1 - 10)) + 10);
+    public void returnZeroOneOrTwoTest() {
+        System.out.println((int) (Math.random() * (-1 - 2)) + 2);
+
     }
 
 }
