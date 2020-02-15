@@ -96,7 +96,7 @@ public class Fighter implements FighterMethods {
             this.hp -= damage;
             //Lägg till logik: ifall HP blir under 0 sätt HP till 0.
             if (this.getHp() > 0)
-                System.out.println("Current HP: " + this.getHp());
+                System.out.println(this.name+"'s current HP: " + this.getHp());
             else
                 System.out.println(this.name + " was defeated.");
         } else {
