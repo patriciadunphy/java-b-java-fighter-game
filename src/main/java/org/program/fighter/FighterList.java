@@ -55,28 +55,12 @@ public class FighterList {
             System.out.println(fighter);
         }
     }
-
-    //    public void createMatchList() throws SQLException {
-//        SQLDatabase db = SQLDatabase.getInstance();
-//        SQLStatements stmt = new SQLStatements();
-//        FighterList a = new FighterList();
-//        //---Fetching fighters from db and putting them in Tournament Fighters list---
-//        a.insertFightersFromDb(db.getFighters(stmt.selectAllFighters()));
-//        //---Adding attacks to player and updating tournament fighters list
-//        db.addAttacks(stmt.getAllAttacks(), a.getFighters());
-//        //---Adding defence to player and updating tournament fighters list
-//        db.addDefense(stmt.selectDefenceStrategies(), a.getFighters());
-//        //a.printFightersList();
-//        this.fighters.addAll(a.getFighters());
-//        db.closeConnection(db.getConnection());
-//        //Shuffles the fighters in the list
-//        Collections.shuffle(this.fighters);
     public void createMatchList() throws SQLException {
         SQLDatabase db = SQLDatabase.getInstance();
         SQLStatements stmt = new SQLStatements();
         FighterList a = new FighterList();
         //---Fetching fighters from db and putting them in Tournament Fighters list---
-        a.insertFightersFromDb(db.getFightersWithAttacksAndDefence(stmt.selectAllFighters(), stmt.selectDefenceStrategies(), stmt.getAllAttacks()));
+        a.insertFightersFromDb(db.getFighters(stmt.selectFighters(), stmt.selectDefenceStrategies(), stmt.selectAttacks()));
         this.fighters.addAll(a.getFighters());
         db.closeConnection(db.getConnection());
         //Shuffles the fighters in the list

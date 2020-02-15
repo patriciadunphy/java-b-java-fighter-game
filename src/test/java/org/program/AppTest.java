@@ -5,40 +5,15 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.program.db.SQLDatabase;
 import org.program.db.SQLStatements;
+import org.program.fighter.Fighter;
 import org.program.fighter.FighterList;
 import org.program.tournament.Tournament;
 
 import java.sql.SQLException;
 
 public class AppTest {
-    //    @Test
-//    public void addFightersToListTest() throws SQLException {
-//        SQLDatabase db = SQLDatabase.getInstance();
-//        SQLStatements stmt = new SQLStatements();
-//        db.getFighters(stmt.selectAllFighters());
-//    }
-//    // @Test
-//    public void checkListOfFightersTest() throws SQLException {
-//        SQLDatabase db = SQLDatabase.getInstance();
-//        SQLStatements stmt = new SQLStatements();
-//        FighterList a = new FighterList();
-//        //---Fetching fighters from db and putting them in Tournament Fighters list---
-//        a.insertFightersFromDb(db.getFighters(stmt.selectAllFighters()));
-//        //---Adding attacks to player and updating tournament fighters list
-//        db.addAttacks(stmt.getAllAttacks(), a.getFighters());
-//        //---Adding defence to player and updating tournament fighters list
-//        db.addDefense(stmt.selectDefenceStrategies(), a.getFighters());
-//        a.printFightersList();
-//
-//        db.closeConnection(db.getConnection());
-//    }
-    @Test
+    //@Test
     public void getFightersInclAttacksAndDefenceTest() throws SQLException {
-//        SQLDatabase db = SQLDatabase.getInstance();
-//        SQLStatements stmt = new SQLStatements();
-//        FighterList fighters = new FighterList();
-//        fighters.insertFightersFromDb(db.getFightersWithAttacksAndDefence(stmt.selectAllFighters(), stmt.selectDefenceStrategies(), stmt.getAllAttacks()));
-//        fighters.printFightersList();
         FighterList a = new FighterList();
         a.createMatchList();
         a.printFightersList();
@@ -51,6 +26,18 @@ public class AppTest {
         a.printFightersList();
     }
     //@Test
+    public void resetHpTest() throws SQLException {
+        FighterList firstList = new FighterList();
+        firstList.createMatchList();
+        Fighter a = new Fighter();
+        a = firstList.getAFighter(0);
+        a.setHp(70);
+        System.out.println("Hp ska vara 70: "+a.getHp());
+        a.resetHp();
+        System.out.println("Hp ska vara återställt: "+a.getHp());
+    }
+
+    @Test
     public void matchTest() throws SQLException {
         FighterList firstList = new FighterList();
         FighterList secondList = new FighterList();

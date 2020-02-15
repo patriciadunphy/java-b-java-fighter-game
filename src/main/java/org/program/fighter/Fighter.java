@@ -1,5 +1,9 @@
 package org.program.fighter;
 
+import org.program.db.SQLDatabase;
+import org.program.db.SQLStatements;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +19,12 @@ public class Fighter implements FighterMethods {
 
     public void addDefences(String defence) {
         defences.add(defence);
+    }
+    public void resetHp() throws SQLException {
+        SQLDatabase db = SQLDatabase.getInstance();
+        SQLStatements stmt = new SQLStatements();
+        int hp = db.resetHp(stmt.selectHp(), this.name);
+        this.hp = hp;
     }
 
     public List<String> getDefences() {
@@ -42,7 +52,8 @@ public class Fighter implements FighterMethods {
         this.quote = quote;
         return this;
     }
-    public String getQuote(){
+
+    public String getQuote() {
         return quote;
     }
 
@@ -78,24 +89,25 @@ public class Fighter implements FighterMethods {
 
     @Override
     public void defend(int chosenDefence, int damage) {
-        System.out.println(this.name+" choose to defend with a "+this.defences.get(chosenDefence));
+        System.out.println(this.name + " choose to defend with a " + this.defences.get(chosenDefence));
         int chance = (int) (Math.random() * (1 - 10)) + 10;
         if (chance > 2) {
-            System.out.println("The attack caused " + damage+" HP in damage.");
+            System.out.println("The attack caused " + damage + " HP in damage.");
             this.hp -= damage;
             //Lägg till logik: ifall HP blir under 0 sätt HP till 0.
             if (this.getHp() > 0)
-            System.out.println("Current HP: " + this.getHp());
+                System.out.println("Current HP: " + this.getHp());
             else
-                System.out.println(this.name+" was defeated.");
+                System.out.println(this.name + " was defeated.");
         } else {
             System.out.println("Attack blocked, HP stays unchanged.");
         }
     }
 
+
     @Override
     public int attack(int chosenAttack) {
-        System.out.println(this.name+" attacks with a "+this.attacks.get(chosenAttack).getStrategyDescription());
+        System.out.println(this.name + " attacks with a " + this.attacks.get(chosenAttack).getStrategyDescription());
         int damage = this.attacks.get(chosenAttack).getDamage();
         return damage;
     }
