@@ -6,18 +6,16 @@ import org.junit.Test;
 import org.program.fighter.Fighter;
 import org.program.fighter.FighterList;
 import org.program.tournament.Tournament;
-import org.program.tournament.TournamentAttackTest;
-
 import java.sql.SQLException;
 
 
 public class AppTest {
 
-    @Test
-    public void tournamentDefendAttackTestTest() throws SQLException {
-        TournamentAttackTest tour = new TournamentAttackTest();
-        tour.attackDefend();
-    }
+//    @Test
+//    public void tournamentDefendAttackTestTest() throws SQLException {
+//        TournamentAttackTest tour = new TournamentAttackTest();
+//        tour.attackDefend();
+//    }
     //@Test
     public void randomTest(){
         int random = (int)(Math.random() * (-1 - 2)) + 2;
