@@ -18,6 +18,14 @@ public class AppTest {
         TournamentAttackTest tour = new TournamentAttackTest();
         tour.attackDefend();
     }
+    //@Test
+    public void randomTest(){
+        int random = (int)(Math.random() * (-1 - 2)) + 2;
+        System.out.println(random);
+        System.out.println(random);
+
+    }
+
 
     //@Test
     public void getFightersInclAttacksAndDefenceTest() throws SQLException {
