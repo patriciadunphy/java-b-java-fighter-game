@@ -65,12 +65,12 @@ public class Tournament {
                 //Här läggs scanner till
                 int playerDefence = (int) (Math.random() * (-1 - 2)) + 2;
                 int playerAttack = (int) (Math.random() * (-1 - 2)) + 2;
-                currentFight.getAFighter(1).defend(playerDefence, currentFight.getAFighter(0).attack(playerAttack));
-                if (player1.getHp() > 0) {
-                    playerDefence = (int) (Math.random() * (-1 - 2)) + 2;
-                    playerAttack = (int) (Math.random() * (-1 - 2)) + 2;
-                    currentFight.getAFighter(0).defend(playerDefence, currentFight.getAFighter(1).attack(playerAttack));
-                }
+//                currentFight.getAFighter(1).defend(playerDefence, currentFight.getAFighter(0).attack(playerAttack));
+//                if (player1.getHp() > 0) {
+//                    playerDefence = (int) (Math.random() * (-1 - 2)) + 2;
+//                    playerAttack = (int) (Math.random() * (-1 - 2)) + 2;
+//                    currentFight.getAFighter(0).defend(playerDefence, currentFight.getAFighter(1).attack(playerAttack));
+//                }
                     /*
                     Skapa slumpmässiga system (skriv logik för att se om det
                     blir en attack eller defend), större chans att det blir

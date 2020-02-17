@@ -6,10 +6,19 @@ import org.junit.Test;
 import org.program.fighter.Fighter;
 import org.program.fighter.FighterList;
 import org.program.tournament.Tournament;
+import org.program.tournament.TournamentAttackTest;
 
 import java.sql.SQLException;
 
+
 public class AppTest {
+
+    @Test
+    public void tournamentDefendAttackTestTest() throws SQLException {
+        TournamentAttackTest tour = new TournamentAttackTest();
+        tour.attackDefend();
+    }
+
     //@Test
     public void getFightersInclAttacksAndDefenceTest() throws SQLException {
         FighterList a = new FighterList();
@@ -73,7 +82,7 @@ public class AppTest {
         //System.out.println(secondList.getListSize());
         //System.out.println(firstList.getListSize());
     }
-    @Test
+    //@Test
     public void runTournamentTest() throws SQLException {
         Tournament tour = new Tournament();
         tour.runTournament();
