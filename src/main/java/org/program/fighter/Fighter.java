@@ -88,21 +88,21 @@ public class Fighter implements FighterMethods {
                 " speed: " + this.speed + ", strength: " + this.strength + ", power: " + this.power + ", attacks: " + attacks.toString() + ", defences: " + defences.toString());
     }
 
-    @Override
-    public void defend(int chosenDefence, int damage) {
-        System.out.println(this.name + " choose to defend with a " + this.defences.get(chosenDefence));
-        int chance = (int) (Math.random() * (1 - 10)) + 10;
-        if (chance > 2) {
-            System.out.println("The attack caused " + damage + " HP in damage.");
-            this.hp -= damage;
-            if (this.getHp() > 0)
-                System.out.println(this.name + "'s current HP: " + this.getHp());
-            else
-                System.out.println(this.name + " was defeated.");
-        } else {
-            System.out.println("Attack blocked, HP stays unchanged.");
-        }
-    }
+//    @Override
+//    public void defend(int chosenDefence, int damage) {
+//        System.out.println(this.name + " choose to defend with a " + this.defences.get(chosenDefence));
+//        int chance = (int) (Math.random() * (1 - 10)) + 10;
+//        if (chance > 2) {
+//            System.out.println("The attack caused " + damage + " HP in damage.");
+//            this.hp -= damage;
+//            if (this.getHp() > 0)
+//                System.out.println(this.name + "'s current HP: " + this.getHp());
+//            else
+//                System.out.println(this.name + " was defeated.");
+//        } else {
+//            System.out.println("Attack blocked, HP stays unchanged.");
+//        }
+//    }
 //    @Override
 //    public void defend(int chosenDefence, int damage) {
 //        System.out.println(this.name + " defended the attack with a " + this.defences.get(chosenDefence));
@@ -120,6 +120,21 @@ public class Fighter implements FighterMethods {
         System.out.println(this.name + " attacks with a " + this.attacks.get(chosenAttack).getStrategyDescription());
         int damage = this.attacks.get(chosenAttack).getDamage();
         return damage;
+    }
+
+
+    public void receiveAttack(int damage){
+        this.hp -= damage;
+        if (this.hp < 0){
+            this.hp = 0;
+        }
+        System.out.println(this.name+" didn't block the attack, current HP: "+this.hp);
+    }
+
+    @Override
+    public void defend(int chosenDefence) {
+        System.out.println(this.name + " choose to defend with a " + this.defences.get(chosenDefence)+"\nHP stays unchanged.");
+//
     }
 //    @Override
 //    public int attack(int chosenAttack, Fighter opponent) {
