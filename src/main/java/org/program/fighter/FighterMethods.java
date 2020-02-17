@@ -1,6 +1,8 @@
 package org.program.fighter;
 
 public interface FighterMethods {
-    public void defend(int chosenDefence, int chosenAttack);
-    public int attack(int damage);
+    void defend(int chosenDefence, int chosenAttack);
+    //void defend(int chosenDefence, int damage);
+    int attack(int damage);
+//    int attack(int damage, Fighter opponent);
 }

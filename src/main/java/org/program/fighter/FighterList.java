@@ -58,6 +58,7 @@ public class FighterList {
 
     public void printMatchList() {
         int i = 1;
+        System.out.println("----------------------------");
         System.out.println("UPCOMING MATCHES");
         for (Fighter fighter : this.fighters) {
             if (i % 2 != 0)
@@ -67,7 +68,7 @@ public class FighterList {
             }
             i +=1;
         }
-        System.out.println();
+        System.out.println("----------------------------");
     }
 
     public void createMatchList() throws SQLException {
