@@ -31,7 +31,8 @@ public class SQLStatements {
                 "LEFT JOIN fighter AS f ON f.fighter_id = fd.fk_fighter_id";
         return defence;
     }
-    public String selectHp(){
+
+    public String selectHp() {
         String hp = "select hp\n" +
                 "from fighter\n" +
                 "where name like ?";
