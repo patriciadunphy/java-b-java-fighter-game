@@ -2,8 +2,6 @@ package org.program.tournament;
 
 import org.program.fighter.Fighter;
 import org.program.fighter.FighterList;
-import org.program.ui.InputHandler;
-
 import java.sql.SQLException;
 
 public class Tournament {
@@ -44,8 +42,6 @@ public class Tournament {
 
             System.out.println("Coming up: "+ player0.getName()+" VS. "+player1.getName());
 
-            //Kör igång fight genom att anropa fight-metoden
-            // Som i sin tur anropar tournament round
             Fighter winnerOfFight = fight(player0, player1);
             System.out.println("Winner: " + winnerOfFight.getName() + ": \"" + winnerOfFight.getQuote() + "\"");
             nextRound.addToTournament(winnerOfFight);
@@ -53,53 +49,6 @@ public class Tournament {
         return nextRound;
     }
 
-    //        public Fighter fight(Fighter player0, Fighter player1) throws SQLException {
-//        int player0wins = 0;
-//        int player1wins = 0;
-//
-//        for (int i = 1; i < 4; i++) {
-//            FighterList currentFight = new FighterList();
-//            currentFight.addToTournament(player0);
-//            currentFight.addToTournament(player1);
-//            boolean playerIsDefeated = false;
-//            //sätt in en switch-case så att spelaren måste starta omgången med ett knapptryck
-//            System.out.println("Round: " + i);
-//            while (playerIsDefeated == false) {
-//                //Här läggs scanner till
-//                int playerDefence = (int) (Math.random() * (-1 - 2)) + 2;
-//                int playerAttack = (int) (Math.random() * (-1 - 2)) + 2;
-////                currentFight.getAFighter(1).defend(playerDefence, currentFight.getAFighter(0).attack(playerAttack));
-////                if (player1.getHp() > 0) {
-////                    playerDefence = (int) (Math.random() * (-1 - 2)) + 2;
-////                    playerAttack = (int) (Math.random() * (-1 - 2)) + 2;
-////                    currentFight.getAFighter(0).defend(playerDefence, currentFight.getAFighter(1).attack(playerAttack));
-////                }
-//                    /*
-//                    Skapa slumpmässiga system (skriv logik för att se om det
-//                    blir en attack eller defend), större chans att det blir
-//                    en defend om fightern har lägre hp än motståndaren.
-//                     */
-//
-//
-//                if (currentFight.getAFighter(0).getHp() <= 0) {
-//                    player1wins += 1;
-//                    playerIsDefeated = true;
-//                } else if (currentFight.getAFighter(1).getHp() <= 0) {
-//                    player0wins += 1;
-//                    playerIsDefeated = true;
-//                }
-//            }
-//            currentFight.getAFighter(0).resetHp();
-//            currentFight.getAFighter(1).resetHp();
-//        }
-//        if (player0wins > player1wins) {
-//            //System.out.println(player0.getName() + ": \"" + player0.getQuote() + "\"");
-//            return player0;
-//        } else
-//            //System.out.println(player1.getName() + ": \"" + player1.getQuote() + "\"");
-//            return player1;
-//
-//    }
     public Fighter fight(Fighter player0, Fighter player1) throws SQLException {
         int player0wins = 0;
         int player1wins = 0;
@@ -117,10 +66,8 @@ public class Tournament {
             }
         }
         if (player0wins > player1wins) {
-            //System.out.println(player0.getName() + ": \"" + player0.getQuote() + "\"");
             return player0;
         } else
-            //System.out.println(player1.getName() + ": \"" + player1.getQuote() + "\"");
             return player1;
 
 
@@ -179,14 +126,9 @@ public class Tournament {
                 }
             }
         }
-        ///––––NEW CODE
         player0.resetHp();
         player1.resetHp();
-        //System.out.println("player0 hp: " + player0.getHp());
-        //System.out.println("player1 hp: " + player1.getHp());
         return playerwins;
-
-        //Måste jag återställa hp innan denna metod tar slut? Kontrollera!
     }
 }
 
