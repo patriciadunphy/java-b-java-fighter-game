@@ -2,6 +2,8 @@ package org.program.tournament;
 
 import org.program.fighter.Fighter;
 import org.program.fighter.FighterList;
+import org.program.ui.InputHandler;
+
 import java.sql.SQLException;
 
 public class Tournament {
@@ -27,10 +29,10 @@ public class Tournament {
         }
     }
 
-
     public FighterList createNewTournament(FighterList tour) throws SQLException {
         Fighter player0;
         Fighter player1;
+        InputHandler input = new InputHandler();
         FighterList nextRound = new FighterList();
 
         while (tour.getListSize() != 0) {
@@ -40,11 +42,23 @@ public class Tournament {
             player1 = tour.getAFighter(getPlayer);
             tour.removeFromTournament(tour.getAFighter(getPlayer));
 
-            System.out.println("Coming up: "+ player0.getName()+" VS. "+player1.getName());
+            System.out.println("Coming up: " + player0.getName() + " VS. " + player1.getName());
 
-            Fighter winnerOfFight = fight(player0, player1);
-            System.out.println("Winner: " + winnerOfFight.getName() + ": \"" + winnerOfFight.getQuote() + "\"");
-            nextRound.addToTournament(winnerOfFight);
+            System.out.println("1: Start fight\n0: Quit");
+            switch (input.getIntInput()) {
+                case 1:
+                    Fighter winnerOfFight = fight(player0, player1);
+                    System.out.println("Winner: " + winnerOfFight.getName() + ": \"" + winnerOfFight.getQuote() + "\"");
+                    nextRound.addToTournament(winnerOfFight);
+                    break;
+                case 0:
+                    System.out.println("Quitting");
+                    System.exit(0);
+                    break;
+                default:
+                    System.exit(0);
+                    break;
+            }
         }
         return nextRound;
     }
@@ -53,24 +67,35 @@ public class Tournament {
         int player0wins = 0;
         int player1wins = 0;
         int winner;
+        InputHandler input = new InputHandler();
 
         for (int i = 1; i < 4; i++) {
-            System.out.println("Round "+i);
-            winner = tournamentRound(player0, player1);
-            if (winner == 0) {
-                player0wins += 1;
-            } else if (winner == 1) {
-                player1wins += 1;
-            } else {
-                System.out.println("Something went wrong");
+            System.out.println("1: Start round " + i + "\n0: Quit");
+            switch (input.getIntInput()) {
+                case 1:
+                    System.out.println("Round " + i);
+                    winner = tournamentRound(player0, player1);
+                    if (winner == 0) {
+                        player0wins += 1;
+                    } else if (winner == 1) {
+                        player1wins += 1;
+                    } else {
+                        System.out.println("Something went wrong");
+                    }
+                    break;
+                case 0:
+                    System.out.println("Quitting");
+                    System.exit(0);
+                    break;
+                default:
+                    System.exit(0);
+                    break;
             }
         }
         if (player0wins > player1wins) {
             return player0;
         } else
             return player1;
-
-
     }
 
     public int tournamentRound(Fighter player0, Fighter player1) throws SQLException {
@@ -98,12 +123,12 @@ public class Tournament {
             if (player0.getHp() <= 0) {
                 playerwins = 1;
                 playerIsDefeated = true;
-                System.out.println(player0.getName()+" is defeated");
+                System.out.println(player0.getName() + " is defeated");
             } else {
                 if (player1.getHp() <= 0) {
                     playerwins = 0;
                     playerIsDefeated = true;
-                    System.out.println(player1.getName()+" is defeated");
+                    System.out.println(player1.getName() + " is defeated");
                 } else {
                     playerAttack = (int) (Math.random() * (-1 - 2)) + 2;
                     playerDefence = (int) (Math.random() * (-1 - 2)) + 2;
@@ -121,7 +146,7 @@ public class Tournament {
                     if (player0.getHp() <= 0) {
                         playerwins = 1;
                         playerIsDefeated = true;
-                        System.out.println(player0.getName()+" is defeated");
+                        System.out.println(player0.getName() + " is defeated");
                     }
                 }
             }
@@ -131,6 +156,3 @@ public class Tournament {
         return playerwins;
     }
 }
-
-
-

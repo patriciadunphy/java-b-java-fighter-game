@@ -62,11 +62,11 @@ public class FighterList {
         System.out.println("UPCOMING MATCHES");
         for (Fighter fighter : this.fighters) {
             if (i % 2 != 0)
-            System.out.print(fighter.getName()+" VS. ");
+                System.out.print(fighter.getName() + " VS. ");
             else {
                 System.out.println(fighter.getName());
             }
-            i +=1;
+            i += 1;
         }
         System.out.println("----------------------------");
     }

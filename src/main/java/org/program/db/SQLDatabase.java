@@ -5,9 +5,7 @@ import org.program.fighter.Fighter;
 
 import java.sql.*;
 import java.util.ArrayList;
-
 import java.util.List;
-
 
 public class SQLDatabase {
     private static SQLDatabase instance;
@@ -102,25 +100,10 @@ public class SQLDatabase {
                     fighters.set(fighters.indexOf(f), f);
                 }
             }
-
         }
-
         return fighters;
     }
 
-    //    public Fighter resetHp(String getHpStatement, Fighter fighter) throws SQLException {
-//        PreparedStatement getFightersStmt;
-//        ResultSet myRsHp;
-//        String fighterName = fighter.getName();
-//        getFightersStmt = getConnection().prepareStatement(getHpStatement);
-//        getFightersStmt.setString(1,fighterName);
-//        myRsHp = getFightersStmt.executeQuery();
-//        while (myRsHp.next()){
-//            int hp = myRsHp.getInt("hp");
-//            fighter.setHp(hp);
-//        }
-//        return fighter;
-//    }
     public int resetHp(String getHpStatement, String fighterName) throws SQLException {
         PreparedStatement getFightersStmt;
         ResultSet myRsHp;
