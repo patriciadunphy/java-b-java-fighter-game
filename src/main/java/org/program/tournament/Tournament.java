@@ -42,7 +42,10 @@ public class Tournament {
             player1 = tour.getAFighter(getPlayer);
             tour.removeFromTournament(tour.getAFighter(getPlayer));
 
+            System.out.println("Coming up: "+ player0.getName()+" VS. "+player1.getName());
+
             //Kör igång fight genom att anropa fight-metoden
+            // Som i sin tur anropar tournament round
             Fighter winnerOfFight = fight(player0, player1);
             System.out.println("Winner: " + winnerOfFight.getName() + ": \"" + winnerOfFight.getQuote() + "\"");
             nextRound.addToTournament(winnerOfFight);
@@ -103,24 +106,26 @@ public class Tournament {
         int winner;
 
         for (int i = 1; i < 4; i++) {
+            System.out.println("Round "+i);
             winner = tournamentRound(player0, player1);
             if (winner == 0) {
                 player0wins += 1;
-            } else if (winner == 1){
+            } else if (winner == 1) {
                 player1wins += 1;
             } else {
                 System.out.println("Something went wrong");
             }
         }
-            if (player0wins > player1wins) {
-                //System.out.println(player0.getName() + ": \"" + player0.getQuote() + "\"");
-                return player0;
-            } else
-                //System.out.println(player1.getName() + ": \"" + player1.getQuote() + "\"");
-                return player1;
+        if (player0wins > player1wins) {
+            //System.out.println(player0.getName() + ": \"" + player0.getQuote() + "\"");
+            return player0;
+        } else
+            //System.out.println(player1.getName() + ": \"" + player1.getQuote() + "\"");
+            return player1;
 
 
     }
+
     public int tournamentRound(Fighter player0, Fighter player1) throws SQLException {
         boolean playerIsDefeated = false;
         int playerAttack;
@@ -146,12 +151,12 @@ public class Tournament {
             if (player0.getHp() <= 0) {
                 playerwins = 1;
                 playerIsDefeated = true;
-                System.out.println("player0 is defeated");
+                System.out.println(player0.getName()+" is defeated");
             } else {
                 if (player1.getHp() <= 0) {
                     playerwins = 0;
                     playerIsDefeated = true;
-                    System.out.println("player1 is defeated");
+                    System.out.println(player1.getName()+" is defeated");
                 } else {
                     playerAttack = (int) (Math.random() * (-1 - 2)) + 2;
                     playerDefence = (int) (Math.random() * (-1 - 2)) + 2;
@@ -169,11 +174,14 @@ public class Tournament {
                     if (player0.getHp() <= 0) {
                         playerwins = 1;
                         playerIsDefeated = true;
-                        System.out.println("player0 is defeated");
+                        System.out.println(player0.getName()+" is defeated");
                     }
                 }
             }
         }
+        ///––––NEW CODE
+        player0.resetHp();
+        player1.resetHp();
         //System.out.println("player0 hp: " + player0.getHp());
         //System.out.println("player1 hp: " + player1.getHp());
         return playerwins;

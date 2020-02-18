@@ -88,7 +88,7 @@ public class AppTest {
         //System.out.println(secondList.getListSize());
         //System.out.println(firstList.getListSize());
     }
-    //@Test
+    @Test
     public void runTournamentTest() throws SQLException {
         Tournament tour = new Tournament();
         tour.runTournament();
