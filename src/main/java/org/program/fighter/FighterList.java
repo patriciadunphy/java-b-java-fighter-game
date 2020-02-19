@@ -15,12 +15,6 @@ public class FighterList {
 
         return fighters.size();
     }
-
-    public void shuffleList() {
-        Collections.shuffle(this.fighters);
-        //this.fighters.
-    }
-
     public void addToTournament(Fighter fighter) {
 
         this.fighters.add(fighter);
