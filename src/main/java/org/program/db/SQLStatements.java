@@ -3,7 +3,7 @@ package org.program.db;
 public class SQLStatements {
 
     public String selectFighters() {
-        String fighters = "select f.name, f.quote, f.hp, f.power, f.speed, f.strength " +
+        String fighters = "select f.name, f.quote, f.hp, f.power, f.speed, f.strength, f.wins " +
                 "from fighter as f";
         return fighters;
     }
@@ -37,5 +37,9 @@ public class SQLStatements {
                 "from fighter\n" +
                 "where name like ?";
         return hp;
+    }
+    public String updateWins() {
+        String updateWins = "update fighter set wins = ? where name like ?";
+        return updateWins;
     }
 }

@@ -23,9 +23,11 @@ public class Tournament {
         if (secondRun.getListSize() == 0) {
             System.out.println("The winner of the tournament is: ");
             System.out.println(firstRun.getAFighter(0).getName());
+            firstRun.getAFighter(0).updateWins();
         } else {
             System.out.println("The winner of the tournament is: ");
             System.out.println(secondRun.getAFighter(0).getName());
+            secondRun.getAFighter(0).updateWins();
         }
     }
 
