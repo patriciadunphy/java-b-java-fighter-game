@@ -67,10 +67,9 @@ public class FighterList {
 
     public void createMatchList() throws SQLException {
         SQLDatabase db = SQLDatabase.getInstance();
-        SQLStatements stmt = new SQLStatements();
         FighterList a = new FighterList();
         //---Fetching fighters from db and putting them in Tournament Fighters list---
-        a.insertFightersFromDb(db.getFighters(stmt.selectFighters(), stmt.selectDefenceStrategies(), stmt.selectAttacks()));
+        a.insertFightersFromDb(db.getFighters());
         this.fighters.addAll(a.getFighters());
         db.closeConnection(db.getConnection());
         //Shuffles the fighters in the list

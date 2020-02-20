@@ -28,16 +28,14 @@ public class Fighter implements FighterMethods {
     }
     public void updateWins() throws SQLException {
         SQLDatabase db = SQLDatabase.getInstance();
-        SQLStatements stmt = new SQLStatements();
         int wins;
         wins = this.wins+1;
-        db.updateWins(stmt.updateWins(),this.name, wins);
+        db.updateWins(this.name, wins);
     }
 
     public void resetHp() throws SQLException {
         SQLDatabase db = SQLDatabase.getInstance();
-        SQLStatements stmt = new SQLStatements();
-        int hp = db.resetHp(stmt.selectHp(), this.name);
+        int hp = db.resetHp(this.name);
         this.hp = hp;
     }
 
