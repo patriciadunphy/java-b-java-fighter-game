@@ -1,57 +1,86 @@
 package org.program.tournament;
 
+import org.program.db.SQLDatabase;
 import org.program.fighter.Fighter;
 import org.program.fighter.FighterList;
 import org.program.ui.InputHandler;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Tournament {
+    public List<Fighter> createTournamentList() throws SQLException {
+        SQLDatabase db = SQLDatabase.getInstance();
+        List<Fighter> fighters = new ArrayList<Fighter>();
+        //---Fetching fighters from db and putting them in Tournament Fighters list---
+        fighters.addAll(db.getFighters());
+        db.closeConnection(db.getConnection());
+        //Shuffles the fighters in the list
+        Collections.shuffle(fighters);
+        return fighters;
+    }
     public void runTournament() throws SQLException {
-        FighterList firstRun = new FighterList();
-        FighterList secondRun = new FighterList();
+
+        //FighterList firstRun = new FighterList();
+        //FighterList secondRun = new FighterList();
+        List<Fighter> firstRun = createTournamentList();
+        List<Fighter> secondRun = new ArrayList<Fighter>();
         Tournament match = new Tournament();
-        firstRun.createMatchList();
-        while (firstRun.getListSize() >= 2 || secondRun.getListSize() >= 2) {
-            firstRun.printMatchList();
+        //firstRun.createMatchList();
+        //firstRun = createTournamentList();
+        //---- NEW CODE
+        TournamentView view = new TournamentView();
+        TournamentController controller = new TournamentController(firstRun, view);
+        //------
+        while (firstRun.size() >= 2 || secondRun.size() >= 2) {
+//            firstRun.printMatchList();
+            //---- NEW CODE
+
+            //------
             secondRun = match.createNewTournament(firstRun);
-            if (secondRun.getListSize() >= 2) {
-                secondRun.printMatchList();
+            if (secondRun.size() >= 2) {
+//                secondRun.printMatchList();
+                //---- NEW CODE
+
+                //------
                 firstRun = match.createNewTournament(secondRun);
             }
         }
-        if (secondRun.getListSize() == 0) {
+        if (secondRun.size() == 0) {
             System.out.println("The winner of the tournament is: ");
-            System.out.println(firstRun.getAFighter(0).getName());
-            firstRun.getAFighter(0).updateWins();
+            System.out.println(firstRun.get(0).getName());
+            firstRun.get(0).updateWins();
         } else {
             System.out.println("The winner of the tournament is: ");
-            System.out.println(secondRun.getAFighter(0).getName());
-            secondRun.getAFighter(0).updateWins();
+            System.out.println(secondRun.get(0).getName());
+            secondRun.get(0).updateWins();
         }
     }
 
-    public FighterList createNewTournament(FighterList tour) throws SQLException {
+    public List<Fighter> createNewTournament(List<Fighter> tour) throws SQLException {
         Fighter player0;
         Fighter player1;
         InputHandler input = new InputHandler();
-        FighterList nextRound = new FighterList();
+        //FighterList nextRound = new FighterList();
+        List<Fighter> nextRound = new ArrayList<Fighter>();
 
-        while (tour.getListSize() != 0) {
+        while (tour.size() != 0) {
             int getPlayer = 0;
-            player0 = tour.getAFighter(getPlayer);
-            tour.removeFromTournament(tour.getAFighter(getPlayer));
-            player1 = tour.getAFighter(getPlayer);
-            tour.removeFromTournament(tour.getAFighter(getPlayer));
+            player0 = tour.get(getPlayer);
+            tour.remove(tour.get(getPlayer));
+            player1 = tour.get(getPlayer);
+            tour.remove(tour.get(getPlayer));
 
             System.out.println("Coming up: " + player0.getName() + " VS. " + player1.getName());
 
             System.out.println("1: Start fight\n0: Quit");
             switch (input.getIntInput()) {
                 case 1:
-                    Fighter winnerOfFight = fight(player0, player1);
+                    Fighter winnerOfFight = runThreeMatches(player0, player1);
                     System.out.println("Winner: " + winnerOfFight.getName() + ": \"" + winnerOfFight.getQuote() + "\"");
-                    nextRound.addToTournament(winnerOfFight);
+                    nextRound.add(winnerOfFight);
                     break;
                 case 0:
                     System.out.println("Quitting");
@@ -65,7 +94,8 @@ public class Tournament {
         return nextRound;
     }
 
-    public Fighter fight(Fighter player0, Fighter player1) throws SQLException {
+    public Fighter runThreeMatches(Fighter player0, Fighter player1) throws SQLException {
+        Match match = new Match();
         int player0wins = 0;
         int player1wins = 0;
         int winner;
@@ -76,7 +106,7 @@ public class Tournament {
             switch (input.getIntInput()) {
                 case 1:
                     System.out.println("Round " + i);
-                    winner = tournamentRound(player0, player1);
+                    winner = match.startMatch(player0, player1);
                     if (winner == 0) {
                         player0wins += 1;
                     } else if (winner == 1) {
@@ -100,61 +130,5 @@ public class Tournament {
             return player1;
     }
 
-    public int tournamentRound(Fighter player0, Fighter player1) throws SQLException {
-        boolean playerIsDefeated = false;
-        int playerAttack;
-        int playerDefence;
-        int rand;
-        int playerwins = 2;
 
-        while (!playerIsDefeated) {
-            playerAttack = (int) (Math.random() * (-1 - 2)) + 2;
-            playerDefence = (int) (Math.random() * (-1 - 2)) + 2;
-
-            if (player1.getHp() < player0.getHp()) {
-                rand = (int) (Math.random() * (-1 - 2)) + 2;
-                if (rand > 0) {
-                    player0.attack(playerAttack);
-                    player1.defend(playerDefence);
-                } else {
-                    player1.receiveAttack(player0.attack(playerAttack));
-                }
-            } else {
-                player1.receiveAttack(player0.attack(playerAttack));
-            }
-            if (player0.getHp() <= 0) {
-                playerwins = 1;
-                playerIsDefeated = true;
-                System.out.println(player0.getName() + " is defeated");
-            } else {
-                if (player1.getHp() <= 0) {
-                    playerwins = 0;
-                    playerIsDefeated = true;
-                    System.out.println(player1.getName() + " is defeated");
-                } else {
-                    playerAttack = (int) (Math.random() * (-1 - 2)) + 2;
-                    playerDefence = (int) (Math.random() * (-1 - 2)) + 2;
-                    if (player0.getHp() < player1.getHp()) {
-                        rand = (int) (Math.random() * (-1 - 2)) + 2;
-                        if (rand > 0) {
-                            player1.attack(playerAttack);
-                            player0.defend(playerDefence);
-                        } else {
-                            player0.receiveAttack(player1.attack(playerAttack));
-                        }
-                    } else {
-                        player0.receiveAttack(player1.attack(playerAttack));
-                    }
-                    if (player0.getHp() <= 0) {
-                        playerwins = 1;
-                        playerIsDefeated = true;
-                        System.out.println(player0.getName() + " is defeated");
-                    }
-                }
-            }
-        }
-        player0.resetHp();
-        player1.resetHp();
-        return playerwins;
-    }
 }
