@@ -32,6 +32,9 @@ public class Fighter implements FighterMethods {
         wins = this.wins+1;
         db.updateWins(this.name, wins);
     }
+    public int getWins(){
+        return wins;
+    }
 
     public void resetHp() throws SQLException {
         SQLDatabase db = SQLDatabase.getInstance();
@@ -39,17 +42,17 @@ public class Fighter implements FighterMethods {
         this.hp = hp;
     }
 
-//    public List<String> getDefences() {
-//        return defences;
-//    }
+    public List<String> getDefences() {
+        return defences;
+    }
 
     public void addAttacks(Attack a) {
         attacks.add(a);
     }
 
-//    public List<Attack> getAttacks() {
-//        return attacks;
-//    }
+    public List<Attack> getAttacks() {
+        return attacks;
+    }
 
     public Fighter setName(String name) {
         this.name = name;
@@ -82,22 +85,31 @@ public class Fighter implements FighterMethods {
         this.speed = speed;
         return this;
     }
+    public int getSpeed(){
+        return speed;
+    }
 
     public Fighter setStrength(int strength) {
         this.strength = strength;
         return this;
+    }
+    public int getStrength(){
+        return strength;
     }
 
     public Fighter setPower(int power) {
         this.power = power;
         return this;
     }
-
-    @Override
-    public String toString() {
-        return ("name: " + this.name + ", quote: " + this.quote + "," +
-                " speed: " + this.speed + ", strength: " + this.strength + ", power: " + this.power + ", attacks: " + attacks.toString() + ", defences: " + defences.toString()+ ", wins: "+this.wins);
+    public int getPower(){
+        return power;
     }
+
+//    @Override
+//    public String toString() {
+//        return ("name: " + this.name + ", quote: " + this.quote + "," +
+//                " speed: " + this.speed + ", strength: " + this.strength + ", power: " + this.power + ", attacks: " + attacks.toString() + ", defences: " + defences.toString()+ ", wins: "+this.wins);
+//    }
 
     @Override
     public int attack(int chosenAttack) {
