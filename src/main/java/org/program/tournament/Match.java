@@ -1,7 +1,5 @@
 package org.program.tournament;
-
 import org.program.fighter.Fighter;
-
 import java.sql.SQLException;
 
 public class Match {

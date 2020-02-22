@@ -1,8 +1,6 @@
 package org.program.tournament;
 
 import org.program.fighter.Fighter;
-import org.program.fighter.FighterList;
-
 import java.util.List;
 
 public class TournamentView {

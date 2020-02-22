@@ -2,7 +2,6 @@ package org.program.tournament;
 
 import org.program.db.SQLDatabase;
 import org.program.fighter.Fighter;
-import org.program.fighter.FighterList;
 import org.program.ui.InputHandler;
 
 import java.sql.SQLException;
@@ -11,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Tournament {
+    //Call the database, gets fighters och places them in a list, the list is returned
     public List<Fighter> createTournamentList() throws SQLException {
         SQLDatabase db = SQLDatabase.getInstance();
         List<Fighter> fighters = new ArrayList<Fighter>();
@@ -21,49 +21,75 @@ public class Tournament {
         Collections.shuffle(fighters);
         return fighters;
     }
-    public void runTournament() throws SQLException {
 
-        //FighterList firstRun = new FighterList();
-        //FighterList secondRun = new FighterList();
+    //    //Creates to lists, the first one inludes the fighters from the database
+//    public void runTournament() throws SQLException {
+//        List<Fighter> firstRun = createTournamentList();
+//        List<Fighter> secondRun = new ArrayList<Fighter>();
+//        Tournament match = new Tournament();
+//
+//        TournamentView view = new TournamentView();
+//        TournamentController controller = new TournamentController(firstRun, view);
+//        //Ska en ny view startas här?
+////        TournamentView secondView = new TournamentView();
+////        TournamentController secondController = new TournamentController(secondRun, secondView);
+//
+//        //As long as either the first or second list has two or more fighters
+//        while (firstRun.size() >= 2 || secondRun.size() >= 2) {
+//            //Print match list: NYTT:
+//            controller.printMatchList();
+//            //Creates a new tournament of the first list, the winners that are returned as a list are placed
+//            //in the secondRun list
+//            secondRun = match.createNewTournament(firstRun);
+//            if (secondRun.size() >= 2) {
+//                //If the secondRun list is equal to or more than two the above method is repeated
+//                firstRun = match.createNewTournament(secondRun);
+//
+//                //NEW
+//                view = new TournamentView();
+//                controller = new TournamentController(secondRun, view);
+//
+//                //print match list: NYTT:
+//                //secondController.printMatchList();
+//            }
+//        }
+//        if (secondRun.size() == 0) {
+//            System.out.println("The winner of the tournament is: ");
+//            System.out.println(firstRun.get(0).getName());
+//            firstRun.get(0).updateWins();
+//        } else {
+//            System.out.println("The winner of the tournament is: ");
+//            System.out.println(secondRun.get(0).getName());
+//            secondRun.get(0).updateWins();
+//        }
+//    }
+//Creates to lists, the first one inludes the fighters from the database
+    public void runTournament() throws SQLException {
         List<Fighter> firstRun = createTournamentList();
-        List<Fighter> secondRun = new ArrayList<Fighter>();
         Tournament match = new Tournament();
-        //firstRun.createMatchList();
-        //firstRun = createTournamentList();
-        //---- NEW CODE
+
         TournamentView view = new TournamentView();
         TournamentController controller = new TournamentController(firstRun, view);
-        //------
-        while (firstRun.size() >= 2 || secondRun.size() >= 2) {
-//            firstRun.printMatchList();
-            //---- NEW CODE
 
-            //------
-            secondRun = match.createNewTournament(firstRun);
-            if (secondRun.size() >= 2) {
-//                secondRun.printMatchList();
-                //---- NEW CODE
+        //As long as the list has two or more fighters
+        while (firstRun.size() >= 2) {
+            controller.updateMatchList(firstRun);
+            controller.printMatchList();
+            //Creates a new tournament of the list, the winners that are returned as a list.
 
-                //------
-                firstRun = match.createNewTournament(secondRun);
-            }
+            firstRun = match.createNewTournament(firstRun);
+            //Only the winners are returned to the list after the method createNewTournament has been executed
+
         }
-        if (secondRun.size() == 0) {
             System.out.println("The winner of the tournament is: ");
             System.out.println(firstRun.get(0).getName());
             firstRun.get(0).updateWins();
-        } else {
-            System.out.println("The winner of the tournament is: ");
-            System.out.println(secondRun.get(0).getName());
-            secondRun.get(0).updateWins();
-        }
     }
 
     public List<Fighter> createNewTournament(List<Fighter> tour) throws SQLException {
         Fighter player0;
         Fighter player1;
         InputHandler input = new InputHandler();
-        //FighterList nextRound = new FighterList();
         List<Fighter> nextRound = new ArrayList<Fighter>();
 
         while (tour.size() != 0) {
@@ -129,6 +155,4 @@ public class Tournament {
         } else
             return player1;
     }
-
-
 }

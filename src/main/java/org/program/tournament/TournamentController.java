@@ -1,7 +1,6 @@
 package org.program.tournament;
 
 import org.program.fighter.Fighter;
-import org.program.fighter.FighterList;
 
 import java.util.List;
 
@@ -15,5 +14,10 @@ public class TournamentController {
     }
     public void printMatchList(){
         view.printMatchList(this.model);
+        //Sätta en observer varje gång updateMatch-list
+        // anropas för att sedan köra denna metod
+    }
+    public void updateMatchList(List<Fighter> model){
+        this.model = model;
     }
 }
