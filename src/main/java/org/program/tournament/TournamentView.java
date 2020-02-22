@@ -18,4 +18,13 @@ public class TournamentView {
         }
         System.out.println("----------------------------");
     }
+    public void printWinner(List<Fighter> fighters){
+        System.out.println("----------------------------");
+        System.out.println("The winner of the tournament is: ");
+        System.out.println(fighters.get(0).getName());
+        System.out.println("----------------------------");
+    }
+    public void printNextMatch(List<Fighter> fighters){
+        System.out.println("Coming up: " + fighters.get(0).getName() + " VS. " + fighters.get(1).getName());
+    }
 }

@@ -12,12 +12,23 @@ public class TournamentController {
         this.model = model;
         this.view = view;
     }
+
+    public List<Fighter> getFighterList(){
+        return model;
+    }
+
     public void printMatchList(){
-        view.printMatchList(this.model);
+        view.printMatchList(getFighterList());
         //Sätta en observer varje gång updateMatch-list
         // anropas för att sedan köra denna metod
     }
     public void updateMatchList(List<Fighter> model){
         this.model = model;
+    }
+    public void printWinner(){
+        view.printWinner(getFighterList());
+    }
+    public void printNextMatch(){
+        view.printNextMatch(getFighterList());
     }
 }
