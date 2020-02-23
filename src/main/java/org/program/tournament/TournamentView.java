@@ -1,6 +1,8 @@
 package org.program.tournament;
 
 import org.program.fighter.Fighter;
+import org.program.ui.Sleep;
+
 import java.util.List;
 
 public class TournamentView {
@@ -17,6 +19,7 @@ public class TournamentView {
             i += 1;
         }
         System.out.println("----------------------------");
+        Sleep.pause(500);
     }
 
     public void printQuarterFinal() {
@@ -39,5 +42,6 @@ public class TournamentView {
     }
     public void printNextMatch(List<Fighter> fighters){
         System.out.println("Coming up: " + fighters.get(0).getName() + " VS. " + fighters.get(1).getName());
+        Sleep.pause(500);
     }
 }
