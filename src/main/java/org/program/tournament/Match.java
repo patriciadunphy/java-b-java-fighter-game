@@ -17,26 +17,11 @@ public class Match {
         FighterController player1Controller = new FighterController(player1, view);
 
         boolean playerIsDefeated = false;
-        int playerAttack;
-        int playerDefence;
-        int rand;
         int playerwins = 2;
 
         while (!playerIsDefeated) {
-            playerAttack = (int) (Math.random() * (-1 - 2)) + 2;
-            playerDefence = (int) (Math.random() * (-1 - 2)) + 2;
-
-            if (player1Controller.getHp() < player0Controller.getHp()) {
-                rand = (int) (Math.random() * (-1 - 2)) + 2;
-                if (rand > 0) {
-                    player0Controller.attack(playerAttack);
-                    player1Controller.defend(playerDefence);
-                } else {
-                   player1Controller.receiveAttack(player0Controller.attack(playerAttack));
-                }
-            } else {
-                player1Controller.receiveAttack(player0Controller.attack(playerAttack));
-            }
+            //Running matchLoop method
+            matchLoop(player1Controller, player0Controller);
             if (player0Controller.getHp() <= 0) {
                 playerwins = 1;
                 playerIsDefeated = true;
@@ -47,19 +32,7 @@ public class Match {
                     playerIsDefeated = true;
                     System.out.println(player1.getName() + " is defeated");
                 } else {
-                    playerAttack = (int) (Math.random() * (-1 - 2)) + 2;
-                    playerDefence = (int) (Math.random() * (-1 - 2)) + 2;
-                    if (player0Controller.getHp() < player1Controller.getHp()) {
-                        rand = (int) (Math.random() * (-1 - 2)) + 2;
-                        if (rand > 0) {
-                            player1Controller.attack(playerAttack);
-                            player0Controller.defend(playerDefence);
-                        } else {
-                            player0Controller.receiveAttack(player1Controller.attack(playerAttack));
-                        }
-                    } else {
-                        player0Controller.receiveAttack(player1Controller.attack(playerAttack));
-                    }
+                    matchLoop(player0Controller, player1Controller);
                     if (player0Controller.getHp() <= 0) {
                         playerwins = 1;
                         playerIsDefeated = true;
@@ -71,6 +44,26 @@ public class Match {
         player0.resetHp();
         player1.resetHp();
         return playerwins;
+    }
+
+    private void matchLoop(FighterController secondAttacker, FighterController firstAttacker) {
+        int playerAttack;
+        int playerDefence;
+        int rand;
+        playerAttack = (int) (Math.random() * (-1 - 2)) + 2;
+        playerDefence = (int) (Math.random() * (-1 - 2)) + 2;
+        if (secondAttacker.getHp() < firstAttacker.getHp()) {
+            rand = (int) (Math.random() * (-1 - 2)) + 2;
+            //If random number is more than 0 the attack will be blocked
+            if (rand > 0) {
+                firstAttacker.attack(playerAttack);
+                secondAttacker.defend(playerDefence);
+            } else {
+                secondAttacker.receiveAttack(firstAttacker.attack(playerAttack));
+            }
+        } else {
+            secondAttacker.receiveAttack(firstAttacker.attack(playerAttack));
+        }
     }
 }
 //public class Match {

@@ -18,6 +18,19 @@ public class TournamentView {
         }
         System.out.println("----------------------------");
     }
+
+    public void printQuarterFinal() {
+        System.out.println("---QUARTER FINAL---");
+    }
+
+    public void printSemiFinal() {
+        System.out.println("---SEMI FINAL---");
+    }
+
+    public void printFinal() {
+        System.out.println("---FINAL---");
+    }
+
     public void printWinner(List<Fighter> fighters){
         System.out.println("----------------------------");
         System.out.println("The winner of the tournament is: ");

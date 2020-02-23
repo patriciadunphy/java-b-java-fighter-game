@@ -105,6 +105,10 @@ public class Tournament {
                     } else {
                         System.out.println("Something went wrong");
                     }
+                    //If a player wins two rounds in a row there will be no 3rd round
+                    if (player0wins == 2 || player1wins == 2){
+                        i = 4;
+                    }
                     break;
                 case 0:
                     System.out.println("Quitting");
