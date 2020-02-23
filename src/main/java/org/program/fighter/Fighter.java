@@ -26,13 +26,15 @@ public class Fighter implements FighterMethods {
         this.wins = wins;
         return this;
     }
+
     public void updateWins() throws SQLException {
         SQLDatabase db = SQLDatabase.getInstance();
         int wins;
-        wins = this.wins+1;
+        wins = this.wins + 1;
         db.updateWins(this.name, wins);
     }
-    public int getWins(){
+
+    public int getWins() {
         return wins;
     }
 
@@ -85,7 +87,8 @@ public class Fighter implements FighterMethods {
         this.speed = speed;
         return this;
     }
-    public int getSpeed(){
+
+    public int getSpeed() {
         return speed;
     }
 
@@ -93,7 +96,8 @@ public class Fighter implements FighterMethods {
         this.strength = strength;
         return this;
     }
-    public int getStrength(){
+
+    public int getStrength() {
         return strength;
     }
 
@@ -101,35 +105,49 @@ public class Fighter implements FighterMethods {
         this.power = power;
         return this;
     }
-    public int getPower(){
+
+    public int getPower() {
         return power;
     }
 
     @Override
     public String toString() {
         return ("name: " + this.name + ", quote: " + this.quote + "," +
-                " speed: " + this.speed + ", strength: " + this.strength + ", power: " + this.power + ", attacks: " + attacks.toString() + ", defences: " + defences.toString()+ ", wins: "+this.wins);
+                " speed: " + this.speed + ", strength: " + this.strength + ", power: " + this.power + ", attacks: " + attacks.toString() + ", defences: " + defences.toString() + ", wins: " + this.wins);
     }
 
+    //    @Override
+//    public int attack(int chosenAttack) {
+//        System.out.println(this.name + " attacks with a " + this.attacks.get(chosenAttack).getStrategyDescription());
+//        int damage = this.attacks.get(chosenAttack).getDamage();
+//        return damage;
+//    }
     @Override
     public int attack(int chosenAttack) {
-        System.out.println(this.name + " attacks with a " + this.attacks.get(chosenAttack).getStrategyDescription());
+        //System.out.println(this.name + " attacks with a " + this.attacks.get(chosenAttack).getStrategyDescription());
         int damage = this.attacks.get(chosenAttack).getDamage();
         return damage;
     }
 
+    //    public void receiveAttack(int damage) {
+//        this.hp -= damage;
+//        if (this.hp < 0) {
+//            this.hp = 0;
+//        }
+//        System.out.println(this.name + " didn't block the attack, current HP: " + this.hp);
+//    }
     public void receiveAttack(int damage) {
         this.hp -= damage;
         if (this.hp < 0) {
             this.hp = 0;
         }
-        System.out.println(this.name + " didn't block the attack, current HP: " + this.hp);
+       // System.out.println(this.name + " didn't block the attack, current HP: " + this.hp);
     }
 
-    @Override
-    public void defend(int chosenDefence) {
-        System.out.println(this.name + " choose to defend with a " + this.defences.get(chosenDefence) + "\nHP stays unchanged.");
-    }
+//    @Override
+//    public void defend(int chosenDefence) {
+//        System.out.println(this.name + " choose to defend with a " + this.defences.get(chosenDefence) + "\nHP stays unchanged.");
+//    }
 }
 
 
