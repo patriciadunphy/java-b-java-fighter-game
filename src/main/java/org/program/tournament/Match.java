@@ -8,32 +8,31 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class Match {
+
+    FighterController fC;
+
     public int startMatch(List<Fighter> twoFighters) throws SQLException {
         Fighter player0 = twoFighters.get(0);
         Fighter player1 = twoFighters.get(1);
-
-        FighterView view = new FighterView();
-        FighterController player0Controller = new FighterController(player0, view);
-        FighterController player1Controller = new FighterController(player1, view);
 
         boolean playerIsDefeated = false;
         int playerwins = 2;
 
         while (!playerIsDefeated) {
             //Running matchLoop method
-            matchLoop(player1Controller, player0Controller);
-            if (player0Controller.getHp() <= 0) {
+            matchLoop(player1, player0);
+            if (player0.getHp() <= 0) {
                 playerwins = 1;
                 playerIsDefeated = true;
                 System.out.println(player0.getName() + " is defeated");
             } else {
-                if (player1Controller.getHp() <= 0) {
+                if (player1.getHp() <= 0) {
                     playerwins = 0;
                     playerIsDefeated = true;
                     System.out.println(player1.getName() + " is defeated");
                 } else {
-                    matchLoop(player0Controller, player1Controller);
-                    if (player0Controller.getHp() <= 0) {
+                    matchLoop(player0, player1);
+                    if (player0.getHp() <= 0) {
                         playerwins = 1;
                         playerIsDefeated = true;
                         System.out.println(player0.getName() + " is defeated");
@@ -46,7 +45,7 @@ public class Match {
         return playerwins;
     }
 
-    private void matchLoop(FighterController secondAttacker, FighterController firstAttacker) {
+    private void matchLoop(Fighter secondAttacker, Fighter firstAttacker) {
         int playerAttack;
         int playerDefence;
         int rand;

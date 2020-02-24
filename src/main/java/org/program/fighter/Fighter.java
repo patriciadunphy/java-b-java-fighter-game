@@ -144,10 +144,10 @@ public class Fighter implements FighterMethods {
        // System.out.println(this.name + " didn't block the attack, current HP: " + this.hp);
     }
 
-//    @Override
-//    public void defend(int chosenDefence) {
-//        System.out.println(this.name + " choose to defend with a " + this.defences.get(chosenDefence) + "\nHP stays unchanged.");
-//    }
+    @Override
+    public void defend(int chosenDefence) {
+        System.out.println(this.name + " choose to defend with a " + this.defences.get(chosenDefence) + "\nHP stays unchanged.");
+    }
 }
 
 
