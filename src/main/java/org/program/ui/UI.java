@@ -1,13 +1,13 @@
 package org.program.ui;
 
-import org.program.tournament.Tournament;
+import org.program.tournament.NewTournament;
 
 import java.sql.SQLException;
 
 public class UI {
     public void run() throws SQLException {
         InputHandler input = new InputHandler();
-        Tournament tour = new Tournament();
+        NewTournament tour = new NewTournament();
         System.out.println("1: Start game\n0: Quit");
         while (true) {
             switch (input.getIntInput()) {

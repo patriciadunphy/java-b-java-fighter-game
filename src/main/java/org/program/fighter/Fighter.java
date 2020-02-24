@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fighter implements FighterMethods {
+public class Fighter {
     private String name;
     private String quote;
     private int hp;
@@ -116,37 +116,21 @@ public class Fighter implements FighterMethods {
                 " speed: " + this.speed + ", strength: " + this.strength + ", power: " + this.power + ", attacks: " + attacks.toString() + ", defences: " + defences.toString() + ", wins: " + this.wins);
     }
 
-    //    @Override
-//    public int attack(int chosenAttack) {
-//        System.out.println(this.name + " attacks with a " + this.attacks.get(chosenAttack).getStrategyDescription());
-//        int damage = this.attacks.get(chosenAttack).getDamage();
-//        return damage;
-//    }
-    @Override
     public int attack(int chosenAttack) {
-        //System.out.println(this.name + " attacks with a " + this.attacks.get(chosenAttack).getStrategyDescription());
         int damage = this.attacks.get(chosenAttack).getDamage();
         return damage;
     }
 
-    //    public void receiveAttack(int damage) {
-//        this.hp -= damage;
-//        if (this.hp < 0) {
-//            this.hp = 0;
-//        }
-//        System.out.println(this.name + " didn't block the attack, current HP: " + this.hp);
-//    }
     public void receiveAttack(int damage) {
         this.hp -= damage;
         if (this.hp < 0) {
             this.hp = 0;
         }
-       // System.out.println(this.name + " didn't block the attack, current HP: " + this.hp);
     }
 
-    @Override
-    public void defend(int chosenDefence) {
-        System.out.println(this.name + " choose to defend with a " + this.defences.get(chosenDefence) + "\nHP stays unchanged.");
+    public String defend(int chosenDefence) {
+        return this.defences.get(chosenDefence);
+        //System.out.println(this.name + " choose to defend with a " + this.defences.get(chosenDefence) + "\nHP stays unchanged.");
     }
 }
 
