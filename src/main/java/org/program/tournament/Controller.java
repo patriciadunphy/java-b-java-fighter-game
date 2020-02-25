@@ -24,9 +24,9 @@ public class Controller {
         return model.get(i);
     }
     //Testar denna metod
-    public void swapPlacesOnTwoFighters(){
-        Collections.swap(this.model, 0, 1);
-    }
+//    public void swapPlacesOnTwoFighters(){
+//        Collections.swap(this.model, 0, 1);
+//    }
     public String getFighterName(int i){
         return getAFighter(i).getName();
     }

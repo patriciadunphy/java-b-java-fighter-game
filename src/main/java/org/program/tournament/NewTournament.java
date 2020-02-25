@@ -25,6 +25,7 @@ public class NewTournament {
             //Creates a new tournament of the list, the winners are returned as a list.
             fighters = createNewTournament(fighters);
             //Only the winners are returned to the list after the method createNewTournament has been executed
+            controller.updateMatchList(fighters);
         }
         controller.updateMatchList(fighters);
         controller.printWinner();
@@ -114,8 +115,6 @@ public class NewTournament {
 //            return twoFighters.get(1);
             return 1;
     }
-
-
     public int startMatch(List<Fighter> twoFighters) throws SQLException {
         View view = new View();
         Controller controller = new Controller(twoFighters, view);
@@ -125,7 +124,7 @@ public class NewTournament {
         while (!playerIsDefeated) {
             //Running matchLoop method
             //matchLoop(twoFighters);
-            matchLoop(controller.getFighterList());
+            matchLoop(controller.getAFighter(0), controller.getAFighter(1));
             if (controller.getAFighter(0).getHp() <= 0) {
                 playerwins = 1;
                 controller.printDefeat(0);
@@ -141,9 +140,11 @@ public class NewTournament {
 
                     //DET ÄR HÄR LOGIKEN INTE FUNGERAR
 
-                    controller.swapPlacesOnTwoFighters();
+                    //controller.swapPlacesOnTwoFighters();
                     //matchLoop(twoFighters);
-                    matchLoop(controller.getFighterList());
+                    //matchLoop(controller.getFighterList());
+                    matchLoop(controller.getAFighter(1), controller.getAFighter(0));
+
                     if (controller.getAFighter(0).getHp()<=0){
                         playerwins = 1;
                         controller.printDefeat(0);
@@ -161,9 +162,13 @@ public class NewTournament {
         return playerwins;
     }
 
-    private void matchLoop(List<Fighter> twoFighters) {
+    //private void matchLoop(List<Fighter> twoFighters) {
+    private void matchLoop(Fighter attacker, Fighter defender) {
 
-        View view = new View();
+    View view = new View();
+        List<Fighter> twoFighters = new ArrayList<>();
+        twoFighters.add(attacker);
+        twoFighters.add(defender);
         Controller controller = new Controller(twoFighters, view);
 
         int playerAttack;
