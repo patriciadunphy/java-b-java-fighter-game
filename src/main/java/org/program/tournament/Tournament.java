@@ -1,57 +1,63 @@
 package org.program.tournament;
 
 import org.program.fighter.Fighter;
-import org.program.fighter.FighterList;
 import org.program.ui.InputHandler;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Tournament {
-    public void runTournament() throws SQLException {
-        FighterList firstRun = new FighterList();
-        FighterList secondRun = new FighterList();
-        Tournament match = new Tournament();
-        firstRun.createMatchList();
-        while (firstRun.getListSize() >= 2 || secondRun.getListSize() >= 2) {
-            firstRun.printMatchList();
-            secondRun = match.createNewTournament(firstRun);
-            if (secondRun.getListSize() >= 2) {
-                secondRun.printMatchList();
-                firstRun = match.createNewTournament(secondRun);
-            }
-        }
-        if (secondRun.getListSize() == 0) {
-            System.out.println("The winner of the tournament is: ");
-            System.out.println(firstRun.getAFighter(0).getName());
-            firstRun.getAFighter(0).updateWins();
-        } else {
-            System.out.println("The winner of the tournament is: ");
-            System.out.println(secondRun.getAFighter(0).getName());
-            secondRun.getAFighter(0).updateWins();
-        }
+    //Controller controller;
+    TournamentList list = new TournamentList();
+
+    public Tournament() throws SQLException {
     }
 
-    public FighterList createNewTournament(FighterList tour) throws SQLException {
-        Fighter player0;
-        Fighter player1;
+    public void runTournament() throws SQLException {
+        View view = new View();
+        List<Fighter> fighters = list.getTournamentList();
+        Controller controller = new Controller(fighters, view);
+
+        while (controller.getSize() >= 2) {
+            controller.printMatchList();
+            //Creates a new tournament of the list, the winners are returned as a list.
+            fighters = createNewTournament(fighters);
+            //Only the winners are returned to the list after the method createNewTournament has been executed
+            controller.updateMatchList(fighters);
+        }
+        controller.updateMatchList(fighters);
+        controller.printWinner();
+        //Updating wins (for the only fighter left in the list) in database
+        controller.updateWins(0);
+    }
+
+    public List<Fighter> createNewTournament(List<Fighter> fighters) throws SQLException {
         InputHandler input = new InputHandler();
-        FighterList nextRound = new FighterList();
+        List<Fighter> nextRound = new ArrayList<>();
 
-        while (tour.getListSize() != 0) {
+        while (fighters.size() != 0) {
+            List<Fighter> toNextMatch = new ArrayList<>();
+            View view = new View();
+            Controller controller = new Controller(toNextMatch, view);
             int getPlayer = 0;
-            player0 = tour.getAFighter(getPlayer);
-            tour.removeFromTournament(tour.getAFighter(getPlayer));
-            player1 = tour.getAFighter(getPlayer);
-            tour.removeFromTournament(tour.getAFighter(getPlayer));
-
-            System.out.println("Coming up: " + player0.getName() + " VS. " + player1.getName());
+            //Adding fighter on index 0 to list toNextMatch
+            toNextMatch.add(fighters.get(getPlayer));
+            //Removing fighter from fighters
+            fighters.remove(fighters.get(getPlayer));
+            toNextMatch.add(fighters.get(getPlayer));
+            fighters.remove(fighters.get(getPlayer));
+            //Updating controller
+            controller.updateMatchList(toNextMatch);
+            //Printing from controller
+            controller.printNextMatch();
 
             System.out.println("1: Start fight\n0: Quit");
             switch (input.getIntInput()) {
                 case 1:
-                    Fighter winnerOfFight = fight(player0, player1);
-                    System.out.println("Winner: " + winnerOfFight.getName() + ": \"" + winnerOfFight.getQuote() + "\"");
-                    nextRound.addToTournament(winnerOfFight);
+                    int i = runMatchSets(toNextMatch);
+                    controller.printWinnerOfMatch(i);
+                    nextRound.add(controller.getAFighter(i));
                     break;
                 case 0:
                     System.out.println("Quitting");
@@ -64,8 +70,7 @@ public class Tournament {
         }
         return nextRound;
     }
-
-    public Fighter fight(Fighter player0, Fighter player1) throws SQLException {
+    public int runMatchSets(List<Fighter> twoFighters) throws SQLException {
         int player0wins = 0;
         int player1wins = 0;
         int winner;
@@ -76,13 +81,17 @@ public class Tournament {
             switch (input.getIntInput()) {
                 case 1:
                     System.out.println("Round " + i);
-                    winner = tournamentRound(player0, player1);
+                    winner = startMatch(twoFighters);
                     if (winner == 0) {
                         player0wins += 1;
                     } else if (winner == 1) {
                         player1wins += 1;
                     } else {
                         System.out.println("Something went wrong");
+                    }
+                    //If a player wins two rounds in a row there will be no 3rd round
+                    if (player0wins == 2 || player1wins == 2) {
+                        i = 4;
                     }
                     break;
                 case 0:
@@ -95,66 +104,68 @@ public class Tournament {
             }
         }
         if (player0wins > player1wins) {
-            return player0;
+//            return twoFighters.get(0);
+            return 0;
         } else
-            return player1;
+//            return twoFighters.get(1);
+            return 1;
     }
-
-    public int tournamentRound(Fighter player0, Fighter player1) throws SQLException {
+    public int startMatch(List<Fighter> twoFighters) throws SQLException {
+        View view = new View();
+        Controller controller = new Controller(twoFighters, view);
         boolean playerIsDefeated = false;
-        int playerAttack;
-        int playerDefence;
-        int rand;
         int playerwins = 2;
 
         while (!playerIsDefeated) {
-            playerAttack = (int) (Math.random() * (-1 - 2)) + 2;
-            playerDefence = (int) (Math.random() * (-1 - 2)) + 2;
-
-            if (player1.getHp() < player0.getHp()) {
-                rand = (int) (Math.random() * (-1 - 2)) + 2;
-                if (rand > 0) {
-                    player0.attack(playerAttack);
-                    player1.defend(playerDefence);
-                } else {
-                    player1.receiveAttack(player0.attack(playerAttack));
-                }
-            } else {
-                player1.receiveAttack(player0.attack(playerAttack));
-            }
-            if (player0.getHp() <= 0) {
+            matchLoop(controller.getAFighter(0), controller.getAFighter(1));
+            if (controller.getAFighter(0).getHp() <= 0) {
                 playerwins = 1;
+                controller.printDefeat(0);
                 playerIsDefeated = true;
-                System.out.println(player0.getName() + " is defeated");
             } else {
-                if (player1.getHp() <= 0) {
+                if (controller.getAFighter(1).getHp() <= 0) {
                     playerwins = 0;
+                    controller.printDefeat(1);
                     playerIsDefeated = true;
-                    System.out.println(player1.getName() + " is defeated");
                 } else {
-                    playerAttack = (int) (Math.random() * (-1 - 2)) + 2;
-                    playerDefence = (int) (Math.random() * (-1 - 2)) + 2;
-                    if (player0.getHp() < player1.getHp()) {
-                        rand = (int) (Math.random() * (-1 - 2)) + 2;
-                        if (rand > 0) {
-                            player1.attack(playerAttack);
-                            player0.defend(playerDefence);
-                        } else {
-                            player0.receiveAttack(player1.attack(playerAttack));
-                        }
-                    } else {
-                        player0.receiveAttack(player1.attack(playerAttack));
-                    }
-                    if (player0.getHp() <= 0) {
+                    //Swapping places with fighters on index 0 and 1 each time this method is run
+                    matchLoop(controller.getAFighter(1), controller.getAFighter(0));
+
+                    if (controller.getAFighter(0).getHp()<=0){
                         playerwins = 1;
+                        controller.printDefeat(0);
                         playerIsDefeated = true;
-                        System.out.println(player0.getName() + " is defeated");
                     }
                 }
             }
         }
-        player0.resetHp();
-        player1.resetHp();
+        controller.resetHp(0);
+        controller.resetHp(1);
         return playerwins;
+    }
+    private void matchLoop(Fighter attacker, Fighter defender) {
+    View view = new View();
+        List<Fighter> twoFighters = new ArrayList<>();
+        twoFighters.add(attacker);
+        twoFighters.add(defender);
+        Controller controller = new Controller(twoFighters, view);
+
+        int playerAttack;
+        int playerDefence;
+        int rand;
+        playerAttack = (int) (Math.random() * (-1 - 2)) + 2;
+        playerDefence = (int) (Math.random() * (-1 - 2)) + 2;
+        if (controller.getHp(1) < controller.getHp(0)){
+            rand = (int) (Math.random() * (-1 - 2)) + 2;
+            //If random number is more than 0 the attack will be blocked
+            if (rand > 0) {
+                controller.attack(0, playerAttack);
+                controller.defend(1, playerDefence);
+            } else {
+                controller.receiveAttack(1, controller.attack(0, playerAttack));
+            }
+        } else {
+            controller.receiveAttack(1, controller.attack(0, playerAttack));
+        }
     }
 }

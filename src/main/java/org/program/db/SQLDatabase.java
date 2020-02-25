@@ -44,7 +44,12 @@ public class SQLDatabase {
             e.getStackTrace();
         }
     }
-    public List<Fighter> getFighters(String getFightersStatement, String getDefenseStatement, String getAttacksStatement) throws SQLException {
+    public List<Fighter> getFighters() throws SQLException {
+        SQLStatements stmt = new SQLStatements();
+        String getFightersStatement = stmt.selectFighters();
+        String getDefenseStatement = stmt.selectDefenceStrategies();
+        String getAttacksStatement = stmt.selectAttacks();
+
         List<Fighter> fighters = new ArrayList<Fighter>();
         PreparedStatement getFightersStmt;
         ResultSet myRsFighters;
@@ -103,10 +108,14 @@ public class SQLDatabase {
                 }
             }
         }
+        closeConnection(getConnection());
         return fighters;
     }
 
-    public int resetHp(String getHpStatement, String fighterName) throws SQLException {
+    public int resetHp(String fighterName) throws SQLException {
+        SQLStatements stmt = new SQLStatements();
+        String getHpStatement = stmt.selectHp();
+
         PreparedStatement getFightersStmt;
         ResultSet myRsHp;
         getFightersStmt = getConnection().prepareStatement(getHpStatement);
@@ -119,7 +128,10 @@ public class SQLDatabase {
         return hp;
     }
 
-    public void updateWins(String updateStatement, String fighterName, int wins) throws SQLException {
+    public void updateWins(String fighterName, int wins) throws SQLException {
+        SQLStatements stmt = new SQLStatements();
+        String updateStatement = stmt.updateWins();
+
         PreparedStatement updateWinsStatement;
         updateWinsStatement = getConnection().prepareStatement(updateStatement);
         updateWinsStatement.setInt(1, wins);

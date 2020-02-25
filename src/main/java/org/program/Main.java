@@ -1,6 +1,7 @@
 package org.program;
 
 
+import org.program.tournament.Tournament;
 import org.program.ui.UI;
 
 import java.sql.SQLException;

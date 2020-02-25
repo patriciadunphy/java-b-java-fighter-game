@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fighter implements FighterMethods {
+public class Fighter {
     private String name;
     private String quote;
     private int hp;
@@ -26,32 +26,35 @@ public class Fighter implements FighterMethods {
         this.wins = wins;
         return this;
     }
+
     public void updateWins() throws SQLException {
         SQLDatabase db = SQLDatabase.getInstance();
-        SQLStatements stmt = new SQLStatements();
         int wins;
-        wins = this.wins+1;
-        db.updateWins(stmt.updateWins(),this.name, wins);
+        wins = this.wins + 1;
+        db.updateWins(this.name, wins);
+    }
+
+    public int getWins() {
+        return wins;
     }
 
     public void resetHp() throws SQLException {
         SQLDatabase db = SQLDatabase.getInstance();
-        SQLStatements stmt = new SQLStatements();
-        int hp = db.resetHp(stmt.selectHp(), this.name);
+        int hp = db.resetHp(this.name);
         this.hp = hp;
     }
 
-//    public List<String> getDefences() {
-//        return defences;
-//    }
+    public List<String> getDefences() {
+        return defences;
+    }
 
     public void addAttacks(Attack a) {
         attacks.add(a);
     }
 
-//    public List<Attack> getAttacks() {
-//        return attacks;
-//    }
+    public List<Attack> getAttacks() {
+        return attacks;
+    }
 
     public Fighter setName(String name) {
         this.name = name;
@@ -85,9 +88,17 @@ public class Fighter implements FighterMethods {
         return this;
     }
 
+    public int getSpeed() {
+        return speed;
+    }
+
     public Fighter setStrength(int strength) {
         this.strength = strength;
         return this;
+    }
+
+    public int getStrength() {
+        return strength;
     }
 
     public Fighter setPower(int power) {
@@ -95,15 +106,17 @@ public class Fighter implements FighterMethods {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return ("name: " + this.name + ", quote: " + this.quote + "," +
-                " speed: " + this.speed + ", strength: " + this.strength + ", power: " + this.power + ", attacks: " + attacks.toString() + ", defences: " + defences.toString()+ ", wins: "+this.wins);
+    public int getPower() {
+        return power;
     }
 
     @Override
+    public String toString() {
+        return ("name: " + this.name + ", quote: " + this.quote + "," +
+                " speed: " + this.speed + ", strength: " + this.strength + ", power: " + this.power + ", attacks: " + attacks.toString() + ", defences: " + defences.toString() + ", wins: " + this.wins);
+    }
+
     public int attack(int chosenAttack) {
-        System.out.println(this.name + " attacks with a " + this.attacks.get(chosenAttack).getStrategyDescription());
         int damage = this.attacks.get(chosenAttack).getDamage();
         return damage;
     }
@@ -113,12 +126,10 @@ public class Fighter implements FighterMethods {
         if (this.hp < 0) {
             this.hp = 0;
         }
-        System.out.println(this.name + " didn't block the attack, current HP: " + this.hp);
     }
 
-    @Override
-    public void defend(int chosenDefence) {
-        System.out.println(this.name + " choose to defend with a " + this.defences.get(chosenDefence) + "\nHP stays unchanged.");
+    public String defend(int chosenDefence) {
+        return this.defences.get(chosenDefence);
     }
 }
 
