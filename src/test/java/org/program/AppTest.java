@@ -2,9 +2,7 @@ package org.program;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-import org.program.fighter.Fighter;
-import org.program.tournament.NewTournament;
+import org.program.tournament.Tournament;
 
 import java.sql.SQLException;
 
@@ -90,7 +88,7 @@ public class AppTest {
     }
 //    @Test
     public void runTournamentTest() throws SQLException {
-        NewTournament tour = new NewTournament();
+        Tournament tour = new Tournament();
         tour.runTournament();
     }
 //

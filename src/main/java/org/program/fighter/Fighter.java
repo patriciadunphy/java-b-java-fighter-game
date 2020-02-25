@@ -130,7 +130,6 @@ public class Fighter {
 
     public String defend(int chosenDefence) {
         return this.defences.get(chosenDefence);
-        //System.out.println(this.name + " choose to defend with a " + this.defences.get(chosenDefence) + "\nHP stays unchanged.");
     }
 }
 
