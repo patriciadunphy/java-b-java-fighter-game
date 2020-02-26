@@ -1,23 +1,27 @@
 package org.program.ui;
 
-import org.program.fighter.Fighter;
+import org.program.tournament.Controller;
 import org.program.tournament.Tournament;
-import org.program.tournament.TournamentList;
+import org.program.tournament.View;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public class UI {
     public void run() throws SQLException {
         InputHandler input = new InputHandler();
         Tournament tour = new Tournament();
-        System.out.println("1: Start game\n2: Highscores\n0: Quit");
+        View view = new View();
+        //FighterList is not used in this method thus it is set to null
+        Controller controller = new Controller(null, view);
         while (true) {
+            System.out.println("1: Start game\n2: Highscores\n0: Quit");
             switch (input.getIntInput()) {
                 case 1:
                     tour.runTournament();
+                    break;
                 case 2:
-                    //Här hämtas metod för att visa highscores
+                    controller.printHighscore();
+                    break;
                 case 0:
                     System.exit(0);
                     break;

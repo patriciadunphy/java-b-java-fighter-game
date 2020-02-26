@@ -42,4 +42,10 @@ public class SQLStatements {
         String updateWins = "update fighter set wins = ? where name like ?";
         return updateWins;
     }
+    public String getWins(){
+        String wins = "select name, wins \n" +
+                "from fighter\n" +
+                "order by wins desc";
+        return wins;
+    }
 }

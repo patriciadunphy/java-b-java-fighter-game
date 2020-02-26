@@ -41,18 +41,23 @@ public class View {
     }
 
     public void printQuarterFinal() {
+        System.out.println("----------------------------");
         System.out.println("---QUARTER FINAL---");
     }
 
     public void printSemiFinal() {
+        System.out.println("----------------------------");
         System.out.println("---SEMI FINAL---");
     }
 
     public void printFinal() {
+        System.out.println("----------------------------");
         System.out.println("---FINAL---");
     }
     public void printWinnerOfMatch(String name, String quote){
+        System.out.println("----------------------------");
         System.out.println("Winner: " + name + ": \"" + quote + "\"");
+        System.out.println("----------------------------");
     }
 
     public void printWinner(List<Fighter> fighters) {
@@ -80,5 +85,13 @@ public class View {
     }
     public void printQuit(){
         System.out.println("Quitting");
+    }
+    public void printHighscore(List<String> highscore){
+        System.out.println("----------------------------");
+        System.out.println("----------HIGHSCORE---------");
+        for (String line : highscore) {
+            System.out.println(line);
+        }
+        System.out.println("----------------------------");
     }
 }

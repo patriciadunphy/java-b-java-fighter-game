@@ -105,12 +105,26 @@ public class SQLDatabase {
                             .setStrategyDescription(strategyDescription);
                     f.addAttacks(attack);
                     //Vad gör jag här??
-                    fighters.set(fighters.indexOf(f), f);
+                    //fighters.set(fighters.indexOf(f), f);
                 }
             }
         }
         closeConnection(getConnection());
         return fighters;
+    }
+    public List<String> getWins() throws SQLException {
+        SQLStatements stmt = new SQLStatements();
+        String getWinsStatement = stmt.getWins();
+        List<String> highscoreList = new ArrayList<>();
+
+        PreparedStatement getWinsStmt;
+        ResultSet myRsWins;
+        getWinsStmt = getConnection().prepareStatement(getWinsStatement);
+        myRsWins = getWinsStmt.executeQuery();
+        while (myRsWins.next()){
+            highscoreList.add(myRsWins.getString("name")+": "+ myRsWins.getString("wins"));
+        }
+        return highscoreList;
     }
 
     public int resetHp(String fighterName) throws SQLException {

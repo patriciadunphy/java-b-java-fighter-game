@@ -1,5 +1,6 @@
 package org.program.tournament;
 
+import org.program.db.SQLDatabase;
 import org.program.fighter.Fighter;
 
 import java.sql.SQLException;
@@ -89,5 +90,11 @@ public class Controller {
     }
     public void printStartFight(){
         view.printStartFight();
+    }
+    public void printHighscore() throws SQLException {
+        SQLDatabase db = SQLDatabase.getInstance();
+        //Fetching highscore list from database and inserting results to a list
+        List<String> highscore = db.getWins();
+        view.printHighscore(highscore);
     }
 }
