@@ -50,7 +50,7 @@ public class Controller {
         model.get(i).updateWins();
     }
     public void printMatchList() {
-        //Sätta en observer varje gång updateMatch-list
+        //TO DO: Sätta en observer varje gång updateMatch-list
         // anropas för att sedan köra denna metod
         if (model.size() % 8 == 0) {
             view.printQuarterFinal();
@@ -74,5 +74,20 @@ public class Controller {
 
     public void printNextMatch() {
         view.printNextMatch(getFighterList());
+    }
+    public void printStartRound(int i){
+        view.printStartRound(i);
+    }
+    public void printRunMatchSetsMenu(int i){
+        view.printRunMatchSetsMenu(i);
+    }
+    public void printErrorMessage(){
+        view.printErrorMessage();
+    }
+    public void printQuit(){
+        view.printQuit();
+    }
+    public void printStartFight(){
+        view.printStartFight();
     }
 }

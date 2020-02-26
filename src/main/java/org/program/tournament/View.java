@@ -66,4 +66,19 @@ public class View {
         System.out.println("Coming up: " + fighters.get(0).getName() + " VS. " + fighters.get(1).getName());
         Sleep.pause(500);
     }
+    public void printStartFight(){
+        System.out.println("1: Start fight\n0: Quit");
+    }
+    public void printStartRound(int i){
+        System.out.println("Round: "+i);
+    }
+    public void printRunMatchSetsMenu(int i){
+        System.out.println("1: Start round " + i + "\n0: Quit");
+    }
+    public void printErrorMessage(){
+        System.out.println("Something went wrong");
+    }
+    public void printQuit(){
+        System.out.println("Quitting");
+    }
 }

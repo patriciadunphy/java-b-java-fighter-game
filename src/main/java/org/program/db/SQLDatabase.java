@@ -104,6 +104,7 @@ public class SQLDatabase {
                             .setDamage(damage)
                             .setStrategyDescription(strategyDescription);
                     f.addAttacks(attack);
+                    //Vad gör jag här??
                     fighters.set(fighters.indexOf(f), f);
                 }
             }
