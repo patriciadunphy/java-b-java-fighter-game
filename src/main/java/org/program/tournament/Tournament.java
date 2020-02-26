@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tournament {
-    //Controller controller;
     TournamentList list = new TournamentList();
 
     public Tournament() throws SQLException {
@@ -51,8 +50,7 @@ public class Tournament {
             controller.updateMatchList(toNextMatch);
             //Printing from controller
             controller.printNextMatch();
-
-            System.out.println("1: Start fight\n0: Quit");
+            controller.printStartFight();
             switch (input.getIntInput()) {
                 case 1:
                     int i = runMatchSets(toNextMatch);
@@ -60,7 +58,7 @@ public class Tournament {
                     nextRound.add(controller.getAFighter(i));
                     break;
                 case 0:
-                    System.out.println("Quitting");
+                    controller.printQuit();
                     System.exit(0);
                     break;
                 default:
@@ -71,23 +69,25 @@ public class Tournament {
         return nextRound;
     }
     public int runMatchSets(List<Fighter> twoFighters) throws SQLException {
+        View view = new View();
+        Controller controller = new Controller(twoFighters, view);
         int player0wins = 0;
         int player1wins = 0;
         int winner;
         InputHandler input = new InputHandler();
 
         for (int i = 1; i < 4; i++) {
-            System.out.println("1: Start round " + i + "\n0: Quit");
+            controller.printRunMatchSetsMenu(i);
             switch (input.getIntInput()) {
                 case 1:
-                    System.out.println("Round " + i);
+                    controller.printStartRound(i);
                     winner = startMatch(twoFighters);
                     if (winner == 0) {
                         player0wins += 1;
                     } else if (winner == 1) {
                         player1wins += 1;
                     } else {
-                        System.out.println("Something went wrong");
+                        controller.printErrorMessage();
                     }
                     //If a player wins two rounds in a row there will be no 3rd round
                     if (player0wins == 2 || player1wins == 2) {
@@ -95,7 +95,7 @@ public class Tournament {
                     }
                     break;
                 case 0:
-                    System.out.println("Quitting");
+                    controller.printQuit();
                     System.exit(0);
                     break;
                 default:
@@ -104,10 +104,8 @@ public class Tournament {
             }
         }
         if (player0wins > player1wins) {
-//            return twoFighters.get(0);
             return 0;
         } else
-//            return twoFighters.get(1);
             return 1;
     }
     public int startMatch(List<Fighter> twoFighters) throws SQLException {
@@ -128,7 +126,7 @@ public class Tournament {
                     controller.printDefeat(1);
                     playerIsDefeated = true;
                 } else {
-                    //Swapping places with fighters on index 0 and 1 each time this method is run
+                    //Swapping places
                     matchLoop(controller.getAFighter(1), controller.getAFighter(0));
 
                     if (controller.getAFighter(0).getHp()<=0){
