@@ -23,7 +23,6 @@ public class View {
     public void printDefeat(String name){
         System.out.println(name + " is defeated");
     }
-
     public void printMatchList(List<Fighter> fighters) {
         int i = 1;
         System.out.println("----------------------------");
@@ -39,7 +38,6 @@ public class View {
         System.out.println("----------------------------");
         Sleep.pause(500);
     }
-
     public void printQuarterFinal() {
         System.out.println("----------------------------");
         System.out.println("---QUARTER FINAL---");
