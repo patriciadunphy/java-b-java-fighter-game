@@ -11,7 +11,9 @@ public class UI {
         InputHandler input = new InputHandler();
         Tournament tour = new Tournament();
         View view = new View();
-        //FighterList is not used in this method thus it is set to null
+        /**
+         * FighterList is not used in this method thus it is set to null
+         */
         Controller controller = new Controller(null, view);
         while (true) {
             System.out.println("1: Start game\n2: Highscores\n0: Quit");
