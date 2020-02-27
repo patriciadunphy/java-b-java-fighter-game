@@ -6,7 +6,13 @@ import org.program.fighter.Fighter;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Controller for tournament
+ */
 public class Controller {
+    /**
+     * Controller constructor
+     */
     private List<Fighter> model;
     private View view;
 
@@ -29,14 +35,36 @@ public class Controller {
     public int getHp(int i) {
         return getAFighter(i).getHp();
     }
+
+    /**
+     * Fighter on index i will defend with the chosen defence method
+     * The fighter's name and defence method will be printed
+     * @param i
+     * @param chosenDefence
+     */
     public void defend(int i, int chosenDefence){
         String defence = getAFighter(i).defend(chosenDefence);
         view.printDefence(getFighterName(i), defence);
     }
+
+    /**
+     * Fighter on index i will attack with the chosen attack method
+     * The fighter's name and defence method will be printed
+     * @param i
+     * @param chosenAttack
+     * @return
+     */
     public int attack(int i, int chosenAttack){
         view.printFighterAttack(getAFighter(i).getName(), getAFighter(i).getAttacks().get(chosenAttack).getStrategyDescription());
         return getAFighter(i).attack(chosenAttack);
     }
+
+    /**
+     * Fighter on index i will receive an attack which will affect the fighter's hp
+     * The fighter's name and hp after received attack will be printed
+     * @param i
+     * @param damage
+     */
     public void receiveAttack(int i, int damage){
         getAFighter(i).receiveAttack(damage);
         view.printReceivedAttack(getFighterName(i), getHp(i));

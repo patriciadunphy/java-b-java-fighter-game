@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SQLDatabase {
+    /**
+     * Singleton for database connection
+     */
     private static SQLDatabase instance;
     private Connection connection;
     private String url = "jdbc:mysql://localhost:3306/fighterapp";
@@ -15,6 +18,11 @@ public class SQLDatabase {
     private String pass = "123";
 
     //Singleton for database-connection
+
+    /**
+     *
+     * @throws SQLException
+     */
     private SQLDatabase() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -24,10 +32,19 @@ public class SQLDatabase {
         }
     }
 
+    /**
+     *
+     * @return connection
+     */
     public Connection getConnection() {
         return connection;
     }
 
+    /**
+     * Each time you need to call the database you call this method
+     * @return instance
+     * @throws SQLException
+     */
     public static SQLDatabase getInstance() throws SQLException {
         if (instance == null) {
             instance = new SQLDatabase();
@@ -37,6 +54,10 @@ public class SQLDatabase {
         return instance;
     }
 
+    /**
+     * Closes the connection
+     * @param connection
+     */
     public static void closeConnection(Connection connection) {
         try {
             connection.close();
@@ -44,6 +65,12 @@ public class SQLDatabase {
             e.getStackTrace();
         }
     }
+
+    /**
+     * Retrieves all fighters from the database including attack and defence methods
+     * @return list of fighters
+     * @throws SQLException
+     */
     public List<Fighter> getFighters() throws SQLException {
         SQLStatements stmt = new SQLStatements();
         String getFightersStatement = stmt.selectFighters();
@@ -112,6 +139,12 @@ public class SQLDatabase {
         closeConnection(getConnection());
         return fighters;
     }
+
+    /**
+     * Retrieves each fighters total wins
+     * @return list of fighters and number of wins
+     * @throws SQLException
+     */
     public List<String> getWins() throws SQLException {
         SQLStatements stmt = new SQLStatements();
         String getWinsStatement = stmt.getWins();
@@ -127,6 +160,12 @@ public class SQLDatabase {
         return highscoreList;
     }
 
+    /**
+     * Retrieves the hp of a specific fighter from the database
+     * @param fighterName
+     * @return hp
+     * @throws SQLException
+     */
     public int resetHp(String fighterName) throws SQLException {
         SQLStatements stmt = new SQLStatements();
         String getHpStatement = stmt.selectHp();
@@ -143,6 +182,12 @@ public class SQLDatabase {
         return hp;
     }
 
+    /**
+     * Updates the specific fighter's total wins in the database.
+     * @param fighterName
+     * @param wins
+     * @throws SQLException
+     */
     public void updateWins(String fighterName, int wins) throws SQLException {
         SQLStatements stmt = new SQLStatements();
         String updateStatement = stmt.updateWins();

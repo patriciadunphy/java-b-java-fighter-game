@@ -8,11 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tournament {
+    /**
+     * Creating a new tournament list
+     */
     TournamentList list = new TournamentList();
 
     public Tournament() throws SQLException {
     }
 
+    /**
+     * Starts the tournament
+     * @throws SQLException
+     */
     public void runTournament() throws SQLException {
         View view = new View();
         List<Fighter> fighters = list.getTournamentList();
@@ -20,17 +27,30 @@ public class Tournament {
 
         while (controller.getSize() >= 2) {
             controller.printMatchList();
-            //Creates a new tournament of the list, the winners are returned as a list.
+            /**
+             * Creating a new tournament of the list, the winners are returned as a list.
+             * The list will decrease by half for each time this method is invoked
+             */
             fighters = createNewTournament(fighters);
-            //Only the winners are returned to the list after the method createNewTournament has been executed
+            /**
+             * Only the winners are returned to the list after the method createNewTournament has been executed
+             */
             controller.updateMatchList(fighters);
         }
         controller.updateMatchList(fighters);
         controller.printWinner();
-        //Updating wins (for the only fighter left in the list) in database
+        /**
+         * Updating wins (for the only fighter left in the list) in the database
+         */
         controller.updateWins(0);
     }
 
+    /**
+     * Retrieving and removing two fighters from the fighters list
+     * @param fighters
+     * @return nextRound
+     * @throws SQLException
+     */
     public List<Fighter> createNewTournament(List<Fighter> fighters) throws SQLException {
         InputHandler input = new InputHandler();
         List<Fighter> nextRound = new ArrayList<>();
@@ -40,21 +60,35 @@ public class Tournament {
             View view = new View();
             Controller controller = new Controller(toNextMatch, view);
             int getPlayer = 0;
-            //Adding fighter on index 0 to list toNextMatch
+            /**
+             * Adding fighter on index 0 to list toNextMatch
+             */
             toNextMatch.add(fighters.get(getPlayer));
-            //Removing fighter from fighters
+            /**
+             * Removing fighter from fighters
+             */
             fighters.remove(fighters.get(getPlayer));
             toNextMatch.add(fighters.get(getPlayer));
             fighters.remove(fighters.get(getPlayer));
-            //Updating controller
+            /**
+             * Updating controller
+             */
             controller.updateMatchList(toNextMatch);
-            //Printing from controller
+            /**
+             * Printing from controller
+             */
             controller.printNextMatch();
             controller.printStartFight();
             switch (input.getIntInput()) {
                 case 1:
+                    /**
+                     * Running runMatchSets method which returns the number of the winner of the match(0 or 1)
+                     */
                     int i = runMatchSets(toNextMatch);
                     controller.printWinnerOfMatch(i);
+                    /**
+                     *Adding the winner to the nextRound list
+                     */
                     nextRound.add(controller.getAFighter(i));
                     break;
                 case 0:
@@ -68,6 +102,13 @@ public class Tournament {
         }
         return nextRound;
     }
+
+    /**
+     * Runs three matches (two if the same fighter wins the two first rounds)
+     * @param twoFighters
+     * @return the index number of the winner of three matches
+     * @throws SQLException
+     */
     public int runMatchSets(List<Fighter> twoFighters) throws SQLException {
         View view = new View();
         Controller controller = new Controller(twoFighters, view);
@@ -81,7 +122,10 @@ public class Tournament {
             switch (input.getIntInput()) {
                 case 1:
                     controller.printStartRound(i);
-                    winner = startMatch(twoFighters);
+                    /**
+                     * Running the runMatchChecker method
+                     */
+                    winner = runMatch(twoFighters);
                     if (winner == 0) {
                         player0wins += 1;
                     } else if (winner == 1) {
@@ -108,14 +152,26 @@ public class Tournament {
         } else
             return 1;
     }
-    public int startMatch(List<Fighter> twoFighters) throws SQLException {
+
+    /**
+     * Method for checking when an attack should take place and to check if a player is dead
+     * @param twoFighters
+     * @return playerwins
+     * @throws SQLException
+     */
+    public int runMatch(List<Fighter> twoFighters) throws SQLException {
         View view = new View();
         Controller controller = new Controller(twoFighters, view);
         boolean playerIsDefeated = false;
         int playerwins = 2;
-
+        /**
+         * As long as a player isn't defeated each fighter will take a turn
+         */
         while (!playerIsDefeated) {
-            matchLoop(controller.getAFighter(0), controller.getAFighter(1));
+            /**
+             * Player 0 takes it turn
+             */
+            attack(controller.getAFighter(0), controller.getAFighter(1));
             if (controller.getAFighter(0).getHp() <= 0) {
                 playerwins = 1;
                 controller.printDefeat(0);
@@ -126,8 +182,10 @@ public class Tournament {
                     controller.printDefeat(1);
                     playerIsDefeated = true;
                 } else {
-                    //Swapping places
-                    matchLoop(controller.getAFighter(1), controller.getAFighter(0));
+                    /**
+                     * Swapping places on the fighter: player 1 takes it turn
+                     */
+                    attack(controller.getAFighter(1), controller.getAFighter(0));
 
                     if (controller.getAFighter(0).getHp()<=0){
                         playerwins = 1;
@@ -141,7 +199,15 @@ public class Tournament {
         controller.resetHp(1);
         return playerwins;
     }
-    private void matchLoop(Fighter attacker, Fighter defender) {
+
+    /**
+     * Method for a fighter to attack another fighter
+     * The attacks and defence methods are chosen at random
+     * If the defender's hp is lower that the attacker's there's a 1 in 3 chance for them to block the attack
+     * @param attacker
+     * @param defender
+     */
+    private void attack(Fighter attacker, Fighter defender) {
     View view = new View();
         List<Fighter> twoFighters = new ArrayList<>();
         twoFighters.add(attacker);
@@ -155,7 +221,9 @@ public class Tournament {
         playerDefence = (int) (Math.random() * (-1 - 2)) + 2;
         if (controller.getHp(1) < controller.getHp(0)){
             rand = (int) (Math.random() * (-1 - 2)) + 2;
-            //If random number is more than 0 the attack will be blocked
+            /**
+             * If random number is more than 0 the attack will be blocked
+             */
             if (rand > 0) {
                 controller.attack(0, playerAttack);
                 controller.defend(1, playerDefence);

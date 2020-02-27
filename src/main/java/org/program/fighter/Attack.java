@@ -1,5 +1,8 @@
 package org.program.fighter;
 
+/**
+ * Specifies what an attack contains
+ */
 public class Attack {
     private String strategyDescription;
     private int damage;
