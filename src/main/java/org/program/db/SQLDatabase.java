@@ -112,7 +112,7 @@ public class SQLDatabase {
             String name = myRsDefence.getString("name");
             for (Fighter f : fighters) {
                 if (f.getName().equalsIgnoreCase(name)) {
-                    f.addDefences(strategyDescription);
+                    f.setDefences(strategyDescription);
                     fighters.set(fighters.indexOf(f), f);
                 }
             }
@@ -130,7 +130,7 @@ public class SQLDatabase {
                     Attack attack = new Attack()
                             .setDamage(damage)
                             .setStrategyDescription(strategyDescription);
-                    f.addAttacks(attack);
+                    f.setAttacks(attack);
                     //Vad gör jag här??
                     //fighters.set(fighters.indexOf(f), f);
                 }
