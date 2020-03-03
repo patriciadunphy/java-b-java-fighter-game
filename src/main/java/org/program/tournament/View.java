@@ -19,13 +19,28 @@ public class View {
     public void printDefeat(String name){
         System.out.println(name + " is defeated");
     }
+    //NEW
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+    //
+    public void printStartScreen(){
+        System.out.println(ANSI_RED+"   ___                   ______ _       _     _            \n" +
+                "  |_  |                  |  ___(_)     | |   | |           \n" +
+                "    | | __ ___   ____ _  | |_   _  __ _| |__ | |_ ___ _ __ \n" +
+                "    | |/ _` \\ \\ / / _` | |  _| | |/ _` | '_ \\| __/ _ \\ '__|\n" +
+                "/\\__/ / (_| |\\ V / (_| | | |   | | (_| | | | | ||  __/ |   \n" +
+                "\\____/ \\__,_| \\_/ \\__,_| \\_|   |_|\\__, |_| |_|\\__\\___|_|   \n" +
+                "                                   __/ |                   \n" +
+                "                                  |___/                    "+ ANSI_WHITE);
+    }
+
     public void printMatchList(List<Fighter> fighters) {
         int i = 1;
         System.out.println("----------------------------");
         System.out.println("UPCOMING MATCHES");
         for (Fighter fighter : fighters) {
             if (i % 2 != 0)
-                System.out.print(fighter.getName() + " VS. ");
+            System.out.print(fighter.getName() + " VS. ");
             else {
                 System.out.println(fighter.getName());
             }

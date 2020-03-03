@@ -36,6 +36,7 @@ class SQLDatabaseTest {
 
     @Test
     void getConnection() {
+        //fail("This test has not yet been implemented");
     }
 
     @Test

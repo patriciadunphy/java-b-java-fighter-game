@@ -37,6 +37,11 @@ public class Controller {
         return getAFighter(i).getHp();
     }
 
+    //NEW
+    public void printStartScreen(){
+        view.printStartScreen();
+    }
+    //
     /**
      * Fighter on index i will defend with the chosen defence method
      * The fighter's name and defence method will be printed

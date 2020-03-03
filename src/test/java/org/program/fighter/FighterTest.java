@@ -18,8 +18,8 @@ class FighterTest {
         a.setQuote("Yay, win!");
         a.setPower(100);
         a.setHp(100);
-        a.setStrength(100);
-        a.setSpeed(100);
+        a.setStrength(70);
+        a.setSpeed(30);
         a.setWins(5);
         a.setDefences("Crying");
         a.setAttacks(attack);
@@ -34,97 +34,61 @@ class FighterTest {
         assertEquals(80, a.getHp());
     }
 
-//    @Test
-//    void addDefences() {
-//    }
-//
-//    @Test
-//    void setWins() {
-//
-//    }
-//
-//    @Test
-//    void updateWins() {
-//    }
-//
-//    @Test
-//    void getWins() {
-//    }
-//
-//    @Test
-//    void resetHp() {
-//    }
-//
-//    @Test
-//    void getDefences() {
-//    }
-//
-//    @Test
-//    void addAttacks() {
-//    }
-//
-//    @Test
-//    void getAttacks() {
-//    }
-//
-//    @Test
-//    void setName() {
-//    }
-//
-//    @Test
-//    void getName() {
-//    }
-//
-//    @Test
-//    void setQuote() {
-//    }
-//
-//    @Test
-//    void getQuote() {
-//    }
-//
-//    @Test
-//    void setHp() {
-//    }
-//
     @Test
     void getHp() {
         assertEquals(100, a.getHp());
     }
-//
-//    @Test
-//    void setSpeed() {
-//    }
-//
-//    @Test
-//    void getSpeed() {
-//    }
-//
-//    @Test
-//    void setStrength() {
-//    }
-//
-//    @Test
-//    void getStrength() {
-//    }
-//
-//    @Test
-//    void setPower() {
-//    }
-//
-//    @Test
-//    void getPower() {
-//    }
-//
-//    @Test
-//    void attack() {
-//    }
-//
-//    @Test
-//    void testReceiveAttack() {
-//    }
-//
-//    @Test
-//    void defend() {
-//    }
+
+    @Test
+    void setSpeed() {
+        a.setSpeed(30);
+        assertEquals(30, a.getSpeed());
+    }
+
+    @Test
+    void getSpeed() {
+        assertEquals(30, a.getSpeed());
+    }
+
+    @Test
+    void setStrength() {
+        a.setStrength(40);
+        assertEquals(40, a.getStrength());
+    }
+
+    @Test
+    void getStrength() {
+        assertEquals(70, a.getStrength());
+    }
+
+    @Test
+    void setPower() {
+        a.setPower(50);
+        assertEquals(50, a.getPower());
+    }
+
+    @Test
+    void getPower() {
+        assertEquals(100, a.getPower());
+    }
+
+    @Test
+    void attack() {
+        assertEquals(10, a.getAttacks().get(0).getDamage());
+    }
+
+    /**
+     * Test to check that an exception is thrown when trying to get an attack that doesn't exists.
+     */
+    @Test
+    void attack_fail() {
+        assertThrows(IndexOutOfBoundsException.class, ()-> {
+            a.getAttacks().get(1).getDamage();
+        });
+    }
+
+    @Test
+    void defend() {
+        assertNotNull(a.getDefences());
+    }
 }
