@@ -86,7 +86,6 @@ class FighterTest {
             a.getAttacks().get(1).getDamage();
         });
     }
-
     @Test
     void defend() {
         assertNotNull(a.getDefences());

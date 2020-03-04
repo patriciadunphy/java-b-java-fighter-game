@@ -36,7 +36,7 @@ class SQLDatabaseTest {
 
     @Test
     void getConnection() {
-        //fail("This test has not yet been implemented");
+        fail("This test has not yet been implemented");
     }
 
     @Test
@@ -46,6 +46,7 @@ class SQLDatabaseTest {
 
     @Test
     void closeConnection() throws SQLException {
+        fail("This test has not yet been implemented");
     }
 
     @Test
@@ -63,5 +64,6 @@ class SQLDatabaseTest {
 
     @Test
     void updateWins() {
+        fail("This test has not yet been implemented");
     }
 }
