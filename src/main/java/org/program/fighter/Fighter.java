@@ -22,7 +22,7 @@ public class Fighter {
      * Adds a defence to Fighter
      * @param defence
      */
-    public void addDefences(String defence) {
+    public void setDefences(String defence) {
         defences.add(defence);
     }
 
@@ -77,7 +77,7 @@ public class Fighter {
      * Adding attacks to the fighter
      * @param a
      */
-    public void addAttacks(Attack a) {
+    public void setAttacks(Attack a) {
         attacks.add(a);
     }
 
