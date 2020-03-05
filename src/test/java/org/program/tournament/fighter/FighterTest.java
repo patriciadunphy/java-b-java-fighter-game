@@ -1,4 +1,4 @@
-package org.program.fighter;
+package org.program.tournament.fighter;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

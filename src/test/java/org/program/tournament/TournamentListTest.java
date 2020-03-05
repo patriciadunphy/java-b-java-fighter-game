@@ -3,7 +3,8 @@ package org.program.tournament;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.program.fighter.Fighter;
+import org.program.tournament.fighter.Fighter;
+import org.program.tournament.fighter.FighterList;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -22,14 +23,14 @@ class TournamentListTest {
 
     @Test
     void getTournamentList() throws SQLException {
-        TournamentList list = new TournamentList();
-        assertNotNull(list.getTournamentList());
+        FighterList list = new FighterList();
+        assertNotNull(list.getFighters());
     }
 
     @Test
     void checkTournamentListDefend() throws SQLException {
-        TournamentList list = new TournamentList();
-        List<Fighter> fighters = list.getTournamentList();
+        FighterList list = new FighterList();
+        List<Fighter> fighters = list.getFighters();
         int i = 1;
         for (Fighter fighter : fighters){
             System.out.println(fighter.getName());
@@ -40,8 +41,8 @@ class TournamentListTest {
 
     @Test
     void checkTournamentListAttack() throws SQLException {
-        TournamentList list = new TournamentList();
-        List<Fighter> fighters = list.getTournamentList();
+        FighterList list = new FighterList();
+        List<Fighter> fighters = list.getFighters();
         int i = 1;
         for (Fighter fighter : fighters) {
             System.out.println(fighter.getName());
@@ -52,8 +53,8 @@ class TournamentListTest {
 
     @Test
     void checkTournamentListAttackAssert() throws SQLException {
-        TournamentList list = new TournamentList();
-        List<Fighter> fighters = list.getTournamentList();
+        FighterList list = new FighterList();
+        List<Fighter> fighters = list.getFighters();
         int i = 1;
         for (Fighter fighter : fighters) {
             System.out.println(fighter.getName());

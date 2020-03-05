@@ -1,7 +1,7 @@
 package org.program.db;
 
-import org.program.fighter.Attack;
-import org.program.fighter.Fighter;
+import org.program.tournament.fighter.Attack;
+import org.program.tournament.fighter.Fighter;
 
 import java.sql.*;
 import java.util.ArrayList;

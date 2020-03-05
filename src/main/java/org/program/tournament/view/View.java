@@ -1,6 +1,6 @@
-package org.program.tournament;
+package org.program.tournament.view;
 
-import org.program.fighter.Fighter;
+import org.program.tournament.fighter.Fighter;
 
 import java.util.List;
 
