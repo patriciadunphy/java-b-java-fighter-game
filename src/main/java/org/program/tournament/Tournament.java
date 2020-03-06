@@ -16,8 +16,8 @@ public class Tournament {
      *
      * @throws SQLException
      */
+    FighterList fighters = new FighterList();
     public void runTournament() throws SQLException {
-        FighterList fighters = new FighterList();
         fighters.createTournamentList();
         View view = new View();
         Controller controller = new Controller(fighters, view);
@@ -77,8 +77,6 @@ public class Tournament {
             /**
              * Printing from controller
              */
-            //controller.printNextMatch();
-            //Now the observer's job
             controller.printStartFight();
             switch (input.getIntInput()) {
                 case 1:

@@ -5,6 +5,16 @@ import org.program.tournament.fighter.Fighter;
 import java.util.List;
 
 public class View {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+
     public void printFighterAttack(String name, String chosenAttack) {
         System.out.println(name + " attacks with a " + chosenAttack);
     }
@@ -19,10 +29,7 @@ public class View {
     public void printDefeat(String name){
         System.out.println(name + " is defeated");
     }
-    //NEW
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_WHITE = "\u001B[37m";
-    //
+
     public void printStartScreen(){
         System.out.println(ANSI_RED+"   ___                   ______ _       _     _            \n" +
                 "  |_  |                  |  ___(_)     | |   | |           \n" +
@@ -31,7 +38,7 @@ public class View {
                 "/\\__/ / (_| |\\ V / (_| | | |   | | (_| | | | | ||  __/ |   \n" +
                 "\\____/ \\__,_| \\_/ \\__,_| \\_|   |_|\\__, |_| |_|\\__\\___|_|   \n" +
                 "                                   __/ |                   \n" +
-                "                                  |___/                    "+ ANSI_WHITE);
+                "                                  |___/                    "+ ANSI_RESET);
     }
 
     public void printMatchList(List<Fighter> fighters) {
@@ -63,16 +70,16 @@ public class View {
         System.out.println("---FINAL---");
     }
     public void printWinnerOfMatch(String name, String quote){
-        System.out.println("----------------------------");
+        System.out.println(ANSI_CYAN+"----------------------------");
         System.out.println("Winner: " + name + ": \"" + quote + "\"");
-        System.out.println("----------------------------");
+        System.out.println("----------------------------"+ ANSI_RESET);
     }
 
     public void printWinner(List<Fighter> fighters) {
-        System.out.println("----------------------------");
+        System.out.println(ANSI_BLUE+"----------------------------");
         System.out.println("The winner of the tournament is: ");
-        System.out.println(fighters.get(0).getName());
-        System.out.println("----------------------------");
+        System.out.println(ANSI_GREEN+fighters.get(0).getName());
+        System.out.println(ANSI_BLUE+"----------------------------"+ ANSI_RESET);
     }
 
     public void printNextMatch(List<Fighter> fighters) {

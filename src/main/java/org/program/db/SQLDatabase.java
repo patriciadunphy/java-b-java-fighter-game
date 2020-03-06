@@ -179,6 +179,7 @@ public class SQLDatabase {
         while (myRsHp.next()) {
             hp = myRsHp.getInt("hp");
         }
+        closeConnection(getConnection());
         return hp;
     }
 
@@ -197,6 +198,7 @@ public class SQLDatabase {
         updateWinsStatement.setInt(1, wins);
         updateWinsStatement.setString(2, fighterName);
         updateWinsStatement.executeUpdate();
+        closeConnection(getConnection());
     }
 }
 

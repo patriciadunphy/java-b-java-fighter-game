@@ -58,7 +58,7 @@ public class Controller {
     public void defend(int i, int chosenDefence) {
         String defence = getAFighter(i).defend(chosenDefence);
         view.printDefence(getFighterName(i), defence);
-        Sleep.pause(100);
+//        Sleep.pause(100);
     }
 
     /**
@@ -71,7 +71,7 @@ public class Controller {
      */
     public int attack(int i, int chosenAttack) {
         view.printFighterAttack(getAFighter(i).getName(), getAFighter(i).getAttacks().get(chosenAttack).getStrategyDescription());
-        Sleep.pause(100);
+//        Sleep.pause(100);
         return getAFighter(i).attack(chosenAttack);
     }
 
@@ -85,7 +85,7 @@ public class Controller {
     public void receiveAttack(int i, int damage) {
         getAFighter(i).receiveAttack(damage);
         view.printReceivedAttack(getFighterName(i), getHp(i));
-        Sleep.pause(100);
+//        Sleep.pause(100);
     }
 
     public void resetHp(int i) throws SQLException {
@@ -94,7 +94,7 @@ public class Controller {
 
     public void printDefeat(int i) {
         view.printDefeat(getFighterName(i));
-        Sleep.pause(200);
+//        Sleep.pause(200);
     }
 
     public void updateWins(int i) throws SQLException {
@@ -104,20 +104,20 @@ public class Controller {
     public void printMatchList() {
         //TO DO: Sätta en observer varje gång updateMatch-list
         // anropas för att sedan köra denna metod
-        if (model.getSize() % 8 == 0) {
+        if (model.getSize() == 8) {
             view.printQuarterFinal();
-        } else if (model.getSize() % 4 == 0) {
+        } else if (model.getSize() == 4) {
             view.printSemiFinal();
-        } else if (model.getSize() % 2 == 0) {
+        } else if (model.getSize() == 2) {
             view.printFinal();
         }
         view.printMatchList(model.getFighters());
-        Sleep.pause(200);
+//        Sleep.pause(200);
     }
 
     public void printWinnerOfMatch(int i) {
         view.printWinnerOfMatch(getFighterName(i), getAFighter(i).getQuote());
-        Sleep.pause(200);
+//        Sleep.pause(200);
     }
 
     public void updateMatchList(FighterList model) {
@@ -126,12 +126,12 @@ public class Controller {
 
     public void printWinner() {
         view.printWinner(getFighterList().getFighters());
-        Sleep.pause(200);
+//        Sleep.pause(200);
     }
 
     public void printNextMatch() {
         view.printNextMatch(getFighterList().getFighters());
-        Sleep.pause(200);
+//        Sleep.pause(200);
     }
 
     public void printStartRound(int i) {
@@ -140,12 +140,12 @@ public class Controller {
 
     public void printRunMatchSetsMenu(int i) {
         view.printRunMatchSetsMenu(i);
-        Sleep.pause(200);
+//        Sleep.pause(200);
     }
 
     public void printErrorMessage() {
         view.printErrorMessage();
-        Sleep.pause(200);
+//        Sleep.pause(200);
     }
 
     public void printQuit() {
@@ -154,7 +154,7 @@ public class Controller {
 
     public void printStartFight() {
         view.printStartFight();
-        Sleep.pause(200);
+//        Sleep.pause(200);
     }
 
     public void printHighscore() throws SQLException {
@@ -164,6 +164,6 @@ public class Controller {
          */
         List<String> highscore = db.getWins();
         view.printHighscore(highscore);
-        Sleep.pause(200);
+//        Sleep.pause(200);
     }
 }

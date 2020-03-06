@@ -106,8 +106,6 @@ public class Fighter {
     public Fighter setName(String name) {
         this.name = name;
         return this;
-        //notifyListeners(this, FIGHTERNAME, this.name, this.name = name);
-        //return this;
     }
 
     /**
