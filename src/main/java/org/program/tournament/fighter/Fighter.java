@@ -1,5 +1,7 @@
-package org.program.fighter;
+package org.program.tournament.fighter;
+
 import org.program.db.SQLDatabase;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,7 @@ public class Fighter {
 
     /**
      * Adds a defence to Fighter
+     *
      * @param defence
      */
     public void setDefences(String defence) {
@@ -28,6 +31,7 @@ public class Fighter {
 
     /**
      * Sets number of wins
+     *
      * @param wins
      * @return wins
      */
@@ -38,6 +42,7 @@ public class Fighter {
 
     /**
      * Updates number of wins in the database
+     *
      * @throws SQLException
      */
     public void updateWins() throws SQLException {
@@ -49,6 +54,7 @@ public class Fighter {
 
     /**
      * Retrieves wins from the Fighter, this method is not in use atm
+     *
      * @return
      */
     public int getWins() {
@@ -57,6 +63,7 @@ public class Fighter {
 
     /**
      * Resets the fighter's hp
+     *
      * @throws SQLException
      */
     public void resetHp() throws SQLException {
@@ -66,7 +73,6 @@ public class Fighter {
     }
 
     /**
-     *
      * @return defences
      */
     public List<String> getDefences() {
@@ -75,6 +81,7 @@ public class Fighter {
 
     /**
      * Adding attacks to the fighter
+     *
      * @param a
      */
     public void setAttacks(Attack a) {
@@ -83,6 +90,7 @@ public class Fighter {
 
     /**
      * Retrieving the fighter's attacks
+     *
      * @return attacks
      */
     public List<Attack> getAttacks() {
@@ -91,6 +99,7 @@ public class Fighter {
 
     /**
      * Sets the fighter's name
+     *
      * @param name
      * @return name
      */
@@ -101,6 +110,7 @@ public class Fighter {
 
     /**
      * Retrieving the fighter's name
+     *
      * @return
      */
     public String getName() {
@@ -109,6 +119,7 @@ public class Fighter {
 
     /**
      * Sets the fighter's quote
+     *
      * @param quote
      * @return
      */
@@ -119,6 +130,7 @@ public class Fighter {
 
     /**
      * Retrieves the fighter's quote
+     *
      * @return
      */
     public String getQuote() {
@@ -127,6 +139,7 @@ public class Fighter {
 
     /**
      * Setting the fighter's hp
+     *
      * @param hp
      * @return
      */
@@ -137,6 +150,7 @@ public class Fighter {
 
     /**
      * Retrieving the fighter's hp
+     *
      * @return
      */
     public int getHp() {
@@ -145,6 +159,7 @@ public class Fighter {
 
     /**
      * Setting the fighter's speed
+     *
      * @param speed
      * @return
      */
@@ -155,6 +170,7 @@ public class Fighter {
 
     /**
      * Retrieving the fighter's speed, not in use atm
+     *
      * @return
      */
     public int getSpeed() {
@@ -163,6 +179,7 @@ public class Fighter {
 
     /**
      * Setting the fighter's strenght
+     *
      * @param strength
      * @return
      */
@@ -173,6 +190,7 @@ public class Fighter {
 
     /**
      * Retrieving the fighter's strenght, not in use atm
+     *
      * @return
      */
     public int getStrength() {
@@ -181,6 +199,7 @@ public class Fighter {
 
     /**
      * Setting the fighter's power
+     *
      * @param power
      * @return
      */
@@ -191,6 +210,7 @@ public class Fighter {
 
     /**
      * Retrieving the fighter's power, not in use atm
+     *
      * @return
      */
     public int getPower() {
@@ -205,6 +225,7 @@ public class Fighter {
 
     /**
      * Method for when a fighter attacks
+     *
      * @param chosenAttack
      * @return damage
      */
@@ -215,6 +236,7 @@ public class Fighter {
 
     /**
      * Method for when a fighter is attacked
+     *
      * @param damage
      */
     public void receiveAttack(int damage) {
@@ -226,6 +248,7 @@ public class Fighter {
 
     /**
      * Method for when a fighter defends itself
+     *
      * @param chosenDefence
      * @return
      */
@@ -233,5 +256,3 @@ public class Fighter {
         return this.defences.get(chosenDefence);
     }
 }
-
-

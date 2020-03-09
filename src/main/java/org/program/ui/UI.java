@@ -1,8 +1,8 @@
 package org.program.ui;
 
-import org.program.tournament.Controller;
 import org.program.tournament.Tournament;
-import org.program.tournament.View;
+import org.program.tournament.view.View;
+import org.program.tournament.controller.Controller;
 
 import java.sql.SQLException;
 
@@ -15,7 +15,7 @@ public class UI {
          * FighterList is not used in this method thus it is set to null
          */
         Controller controller = new Controller(null, view);
-        view.printStartScreen();
+        controller.printStartScreen();
         while (true) {
             System.out.println("1: Start game\n2: Highscores\n0: Quit");
             switch (input.getIntInput()) {

@@ -1,7 +1,7 @@
 package org.program.db;
 
-import org.program.fighter.Attack;
-import org.program.fighter.Fighter;
+import org.program.tournament.fighter.Attack;
+import org.program.tournament.fighter.Fighter;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -179,6 +179,7 @@ public class SQLDatabase {
         while (myRsHp.next()) {
             hp = myRsHp.getInt("hp");
         }
+        closeConnection(getConnection());
         return hp;
     }
 
@@ -197,6 +198,7 @@ public class SQLDatabase {
         updateWinsStatement.setInt(1, wins);
         updateWinsStatement.setString(2, fighterName);
         updateWinsStatement.executeUpdate();
+        closeConnection(getConnection());
     }
 }
 

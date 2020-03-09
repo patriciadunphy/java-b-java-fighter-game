@@ -2,13 +2,8 @@ package org.program.db;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-import org.program.fighter.Fighter;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import static org.junit.Assert.assertNotNull;
