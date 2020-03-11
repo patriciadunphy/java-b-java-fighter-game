@@ -47,7 +47,4 @@ static FighterList list = new FighterList();
         assertNotNull(list.getFighter(0));
     }
 
-    @Test
-    void addChangeListener() {
-    }
 }

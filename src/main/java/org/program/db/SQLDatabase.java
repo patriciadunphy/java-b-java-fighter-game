@@ -17,8 +17,6 @@ public class SQLDatabase {
     private String user = "student";
     private String pass = "123";
 
-    //Singleton for database-connection
-
     /**
      *
      * @throws SQLException
@@ -136,8 +134,8 @@ public class SQLDatabase {
                 }
             }
         }
-        closeConnection(getConnection());
         return fighters;
+
     }
 
     /**
@@ -179,7 +177,6 @@ public class SQLDatabase {
         while (myRsHp.next()) {
             hp = myRsHp.getInt("hp");
         }
-        closeConnection(getConnection());
         return hp;
     }
 
@@ -198,6 +195,7 @@ public class SQLDatabase {
         updateWinsStatement.setInt(1, wins);
         updateWinsStatement.setString(2, fighterName);
         updateWinsStatement.executeUpdate();
+
         closeConnection(getConnection());
     }
 }
