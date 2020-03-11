@@ -209,7 +209,7 @@ public class Tournament {
      * @param attacker
      * @param defender
      */
-    private void attack(Fighter attacker, Fighter defender) {
+    public void attack(Fighter attacker, Fighter defender) {
         View view = new View();
         FighterList twoFighters = new FighterList();
         twoFighters.addFighter(attacker);

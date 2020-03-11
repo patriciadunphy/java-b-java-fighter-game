@@ -102,8 +102,6 @@ public class Controller {
     }
 
     public void printMatchList() {
-        //TO DO: Sätta en observer varje gång updateMatch-list
-        // anropas för att sedan köra denna metod
         if (model.getSize() == 8) {
             view.printQuarterFinal();
         } else if (model.getSize() == 4) {

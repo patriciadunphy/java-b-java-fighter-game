@@ -3,8 +3,11 @@ package org.program.db;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.program.tournament.fighter.Fighter;
 
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,6 +18,7 @@ class SQLDatabaseTest {
      * Creating a static instance variable, is static since the setup method needs to be static
      */
     static SQLDatabase db;
+    static List<Fighter> fighters;
 
     /**
      * Before each test the getInstance method is invoked
@@ -23,6 +27,7 @@ class SQLDatabaseTest {
     @BeforeAll
     static void setup() throws SQLException {
         db = SQLDatabase.getInstance();
+        fighters = db.getFighters();
     }
 
     @AfterEach
@@ -31,7 +36,14 @@ class SQLDatabaseTest {
 
     @Test
     void getConnection() {
-        fail("This test has not yet been implemented");
+        boolean con;
+        try{
+            db.getConnection();
+            con = true;
+        } catch(Exception e){
+            con = false;
+        }
+        assertTrue(con);
     }
 
     @Test
@@ -41,7 +53,14 @@ class SQLDatabaseTest {
 
     @Test
     void closeConnection() throws SQLException {
-        fail("This test has not yet been implemented");
+        boolean con;
+        try{
+            SQLDatabase.closeConnection(db.getConnection());
+            con = true;
+        } catch (Exception e){
+            con = false;
+        }
+        assertTrue(con);
     }
 
     @Test
@@ -54,11 +73,20 @@ class SQLDatabaseTest {
 
     @Test
     void resetHp() throws SQLException {
+        db = SQLDatabase.getInstance();
         assertEquals(100, db.resetHp("Anna Williams"));
     }
 
     @Test
-    void updateWins() {
-        fail("This test has not yet been implemented");
+    void updateWins() throws SQLException {
+        db = SQLDatabase.getInstance();
+        boolean update;
+        try {
+            fighters.get(0).updateWins();
+            update = true;
+        } catch (Exception e){
+            update = false;
+        }
+        assertTrue(update);
     }
 }
